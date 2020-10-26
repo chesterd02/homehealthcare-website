@@ -1,0 +1,95 @@
+div.title {
+    text-align: center;
+    font-size: 40px;
+    line-height: 0.5;
+}
+div.description {
+    text-align: center;
+    margin-top: 0%;
+    font-size: 40px;
+    line-height: 0;
+    display: block;
+}
+div.login {
+    font-size: 30px;
+    text-align: right;
+    margin-top: 5%;
+    margin-right: 9%;
+    line-height: 0.5;
+}
+div.heading {
+    text-align: right;
+    margin-right: 8.5%;
+}
+div.profileHead {
+    text-align: center;
+}
+div.dataHead {
+    text-align: center;
+}
+div.b {
+    text-align: right;
+}
+div.separator {
+    font-size: 16px;
+    text-align: right;
+    margin-right: 18.5%;
+}
+div.signintitle {
+    font-size: 16px;
+    text-align: center;
+}
+.button1 {
+    background-color: #33c5ff;
+    padding: 14px 133px;
+    font-size: 16px;
+    margin-right: 9%;
+}
+.button2 {
+    text-align: right;
+    background-color: #33c5ff;
+    padding: 14px 128px;
+    font-size: 16px;
+    margin-right: 9%;
+}
+.button3 {
+    background-color: #33c5ff;
+    padding: 14px 60px;
+    font-size: 16px;
+    margin-left: 9%;
+}
+p.space {
+    line-height: 0.5;
+}
+
+#fname
+{
+    height:50px;
+    width: 310px;
+    font-size:14pt;
+    line-height: 2px;
+}
+#pname
+{
+    height:50px;
+    width: 310px;
+    font-size:14pt;
+}
+#sname
+{
+    height:35px;
+    width: 310px;
+    font-size:16pt;
+    line-height: 2px;
+}
+#spass, #cpass, #semail, #firstname, #lastname, #sphone, #sadd, #sstate, #szip
+{
+    height:35px;
+    width: 310px;
+    font-size:16pt;
+    line-height: 2px;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
