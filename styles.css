@@ -52,11 +52,21 @@ div.signintitle {
     font-size: 16px;
     margin-right: 9%;
 }
-.button3 {
+.button3  {
     background-color: #33c5ff;
     padding: 14px 60px;
     font-size: 16px;
     margin-left: 9%;
+}
+.edit_button_rec {
+    background-color: #33c5ff;
+    padding: 14px 60px;
+    font-size: 16px;
+}
+.edit_profile {
+    background-color: #33c5ff;
+    padding: 14px 60px;
+    font-size: 16px;
 }
 p.space {
     line-height: 0.5;
@@ -85,6 +95,13 @@ p.space {
 #spass, #cpass, #semail, #firstname, #lastname, #sphone, #sadd, #sstate, #szip
 {
     height:35px;
+    width: 310px;
+    font-size:16pt;
+    line-height: 2px;
+}
+#edit_needs_rec
+{
+    height:310px;
     width: 310px;
     font-size:16pt;
     line-height: 2px;
