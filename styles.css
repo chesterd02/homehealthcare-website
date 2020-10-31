@@ -41,7 +41,7 @@ div.signintitle {
 }
 .button1 {
     background-color: #33c5ff;
-    padding: 14px 133px;
+    padding: 14px 128px;
     font-size: 16px;
     margin-right: 9%;
 }
@@ -78,6 +78,7 @@ p.space {
     width: 310px;
     font-size:14pt;
     line-height: 2px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 #pname
 {
