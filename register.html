@@ -1,130 +1,47 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-    <!--<![endif]-->
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>Register</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width" />
-
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body data-gr-c-s-loaded="true" class="visible">
-        <!--[if lt IE 7]>
-            <p class="chromeframe">
-                You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or
-                <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.
-            </p>
-        <![endif]-->
-
-        <div id="noCognitoMessage" class="configMessage" style="display: none;">
-            <div class="backdrop"></div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">No Cognito User Pool Configured</h3>
-                </div>
-                <div class="panel-body">
-                    <p>There is no user pool configured in.</p>
-                </div>
-            </div>
+<html>
+    <link rel="stylesheet" href="/styles.css" />
+    <body style="background-color: antiquewhite;">
+        <div class="signintitle">
+            <h1>
+                Please fill in the following fields.   
+            </h1>
         </div>
-        <div class="auth-screen">
-            <div class="container-fluid">
-                <div class="row main-row">
-                    <div class="col-md-6 col-lg-5 p-0">
-                        <!-- Content Section -->
-                        <div class="content-section">
-                            <div class="content-inner">
-                                <!-- Page Header -->
-                                <div class="page-header">
-                                    <h1 class="page-title">Register</h1>
-                                </div>
-                                <!--/ Page Header -->
-
-                                <!-- form -->
-                                <form id="registrationForm">
-                                    <div class="form-group"></div>
-
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input
-                                            class="form-control form-control-lg"
-                                            type="email"
-                                            id="emailInputRegister"
-                                            placeholder="Email"
-                                            pattern=".*"
-                                            required
-                                        />
-                                    </div>
-
-                                    <!-- Password -->
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <div class="custom-password">
-                                            <input
-                                                type="password"
-                                                class="form-control form-control-lg"
-                                                id="passwordInputRegister"
-                                                placeholder="Password"
-                                                pattern=".*"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="password">Confirm Password</label>
-                                        <div class="custom-password">
-                                            <input
-                                                type="password"
-                                                class="form-control form-control-lg"
-                                                id="password2InputRegister"
-                                                placeholder="Confirm Password"
-                                                pattern=".*"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <!-- Checkbox -->
-<!--                                    <div class="form-group custom-control custom-checkbox">-->
-<!--                                        <input type="checkbox" id="remember-me" name="remember-me" class="skip-validation" />-->
-<!--                                        <label for="remember-me">Keep me signed in on this device</label>-->
-<!--                                    </div>-->
-
-
-
-                                    <div class="as-cs-btn">
-                                        <input class="btn btn-primary" type="submit" value="Register" />
-                                    </div>
-
-                                </form>
-                                    <div class="page-footer">
-                                        <div class="create-account">
-                                            <h6>
-                                                Already a member?
-                                                <a href="/signin.html" target="_blank">Login into your account</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                <!--/ form -->
-                            </div>
-                        </div>
-                        <!--/ Content Section -->
-                    </div>
-                </div>
+            <div class="signfirstname">
+                <label for="emailInputRegister">Email:</label>
+                <input type="text" id="emailInputRegister" name="emailInputRegister">
             </div>
+<!--        <div class="signfirstname">-->
+<!--            <label for="firstname">First Name:</label>-->
+<!--            <input type="text" id="firstname" name="firstname">-->
+<!--        </div>-->
+<!--        <p class="space"> </p>-->
+<!--        <div class="signlastname">-->
+<!--            <label for="lastname">Last Name:</label>-->
+<!--            <input type="text" id="lastname" name="lastname">-->
+<!--        </div>-->
+        <p class="space"> </p>
+        <p>Check one of the following boxes</p>
+        <p class="space"> </p>
+            <label for="checkAccountType"  style="word-wrap:break-word">
+               <input id="caretakerCheck"  type="checkbox" value="test" />Caretaker
+               <input id="recipientCheck"  type="checkbox" value="test2" />Recipient
+            </label>
+        <p class="space"> </p>
+        <div class="signuser">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
         </div>
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
+       <p class="space"> </p>
+        <div class="signpass">
+            <label for="passwordInputRegister">Password: </label>
+            <input type="text" id="passwordInputRegister" name="spass">
+        </div>
+        <p class="space"> </p>
+        <div class="confirmPass">
+            <label for="password2InputRegister">Confirm Password: </label>
+            <input type="text" id="password2InputRegister" name="cpass">
+        </div>
+        <p class="space"> </p>
+        <button class="button button3" id="registrationButton">Create Account</button>
     </body>
 </html>

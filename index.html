@@ -1,5 +1,11 @@
 <html>
-    <link rel="stylesheet" href="/styles.css" />
+    <head>
+        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+        <link rel="stylesheet" href="css/message.css">
+    </head>
+
     <body style="background-color: antiquewhite; font-family: georgia;">
         <div class="title">
             <h1 style="font-family:georgia; margin-top: 2%;">
@@ -10,37 +16,99 @@
         <div class="description">
             Where you can keep track of your health care needs.
         </div>
-        
-        
-        <div class="login">
-            <img src="health_care.png" style="float:left;width:400px;height:400px;margin-left: 9%;">
-            <div class="heading">
-                Login
+
+
+<!-- chesters form -->
+<!--        <form id="signinForm">-->
+<!--            <div class="form-group"></div>-->
+
+<!--            &lt;!&ndash; Email &ndash;&gt;-->
+<!--            <div class="form-group">-->
+<!--                <label for="email">Email</label>-->
+<!--                <input-->
+<!--                        type="email"-->
+<!--                        id="emailInputSignin"-->
+<!--                        class="form-control form-control-lg"-->
+<!--                        placeholder="example@email.com"-->
+<!--                        required=""-->
+<!--                />-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Password &ndash;&gt;-->
+<!--            <div class="form-group">-->
+<!--                <label for="password">Password</label>-->
+<!--                <div class="custom-password">-->
+<!--                    <input-->
+<!--                            class="form-control form-control-lg"-->
+<!--                            type="password"-->
+<!--                            id="passwordInputSignin"-->
+<!--                            placeholder="Password"-->
+<!--                            pattern=".*"-->
+<!--                            required=""-->
+<!--                    />-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="as-cs-btn">-->
+<!--                <input class="btn btn-primary" type="submit" value="Sign in" />-->
+<!--            </div>-->
+<!--        </form>-->
+
+
+        <form id="signinForm">
+            <div class="login">
+                <img src="health_care.png" style="float:left;width:400px;height:400px;margin-left: 9%;">
+                <div class="heading">
+                    Login
+                </div>
+                <p class="space"> </p>
+                <div>
+                    <label for="emailInputSignin">Email</label>
+                    <input
+                            type="text"
+                            id="emailInputSignin"
+                            placeholder="example@email.com"
+                    />
+
+                </div>
+                <p class="space"> </p>
+                <div>
+                    <label for="passwordInputSignin">Password</label>
+                        <input
+                                type="text"
+                                id="passwordInputSignin"
+                                placeholder="Password"
+                        />
+                </div>
+                <p class="space"> </p>
+                <div>
+                    <button class="button button1" id="signinButton" style="font-family: georgia;
+                    font-weight: bold; font-size: larger;">Signin</button>
+                </div>
             </div>
-            <p class="space"> </p>
-            <div>
-                <label for="fname">Username:</label>
-                <input type="text" id="fname" name="fname">
-            
-            </div>
-            <p class="space"> </p>
-            <div>
-                <label for="pname">Password:</label>
-                <input type="text" id="pname" name="pname">
-            </div>
-        </div>
+        </form>
         <p class="space"> </p>
         <div class="b">
-            <button class="button button1" onclick="window.location.href='profile.html';" style="font-family: georgia;
-            font-weight: bold; font-size: larger;">Login</button>
+<!--            <input class="button button1" type="submit" value="Sign in" />-->
+<!--            <button class="button button1",-->
+<!--                    onclick="window.location.href='profile.html';" -->
+<!--                    style="font-family: georgia;-->
+<!--                    font-weight: bold;-->
+<!--                    font-size: larger;">-->
+<!--                    Login-->
+<!--            </button>-->
             <p class="space"> </p>
             <div class="separator">
                 <p>Or</p>
             </div>
             <p class="space"> </p>
-            <button class="button button2" onclick="window.location.href='signin.html';" style="font-family: georgia;
-            font-weight: bold; font-size: larger;">Sign In</button>
+            <button class="button button2" onclick="window.location.href='register.html';" style="font-family: georgia;
+            font-weight: bold; font-size: larger;">Create account</button>
         </div>
-        <script src="/script.js"></script>
+        <script src="js/vendor/jquery-3.1.0.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/cognito-auth.js"></script>
     </body>
 </html>

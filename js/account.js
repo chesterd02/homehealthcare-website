@@ -18,7 +18,9 @@ var AppId;
     });
 
     $(function onDocReady() {
-        //$('#showCredientials').click(getUserInfo);
+        $('#showCredientials').click(getUserInfo);
+        $('#request').click(somefunction);
+        $('#changeAlias').click(handleAliasClick);
         $('#signOut').click(function () {
             App.signOut();
             alert("You have been signed out.");
@@ -36,10 +38,13 @@ var AppId;
         requestUserInfo();
     });
 
+    function somefunction(){
+
+    }
     function requestUserInfo() {
         $.ajax({
             method: 'POST',
-            url: _config.api.invokeUrl + '/account',
+            url: _config.api.invokeUrl + '/getinfo',
             headers: {
                 Authorization: authToken
             },
@@ -54,8 +59,46 @@ var AppId;
         });
     }
 
+    //*****
+    //*******HANDLE ALIAS CHANGE
+    function handleAliasClick(event){
+        event.preventDefault();
+        var newAlias = prompt ("Enter your new Alias:")
+        if (newAlias == null || newAlias == ""){
+            alert("cancelled");
+        }else{
+            updateAlias(newAlias)
+        }
+    }
+    function updateAlias(newAlias){
+        alert('new alias will be: '+ newAlias);
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/changealias',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                newAlias: newAlias
+            }),
+            contentType: 'application/json',
+            success: requestUserInfo,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error updating alias: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occured when updating the alias.');
+                // alert('An error occurred when updating alias:\n' + jqXHR.responseText);
+            }
+        });
+    }
+
     function completeRequest(result){
         alert(JSON.stringify(result));
+
+        alert(JSON.stringify(result.matches))
+        loop
+        size
+        displayUpdate("this is an update")
     }
 
     function displayUpdate(text) {

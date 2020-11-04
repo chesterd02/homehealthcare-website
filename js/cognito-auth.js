@@ -5,7 +5,7 @@ var App = window.App || {};
 
 (function scopeWrapper($) {
     var signinUrl = 'signin.html';
-
+    alert ('called scope');
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
         ClientId: _config.cognito.userPoolClientId
@@ -16,6 +16,7 @@ var App = window.App || {};
     if (!(_config.cognito.userPoolId &&
           _config.cognito.userPoolClientId &&
           _config.cognito.region)) {
+        alert('user pool configured');
         $('#noCognitoMessage').show();
         return;
     }
@@ -46,7 +47,6 @@ var App = window.App || {};
             resolve(null);
         }
     });
-
 
     /*
      * Cognito User Pool functions
@@ -82,7 +82,6 @@ var App = window.App || {};
         });
     }
 
-
     function createCognitoUser(email) {
         return new AmazonCognitoIdentity.CognitoUser({
             Username: email,
@@ -95,14 +94,16 @@ var App = window.App || {};
      */
 
     $(function onDocReady() {
-        $('#signinForm').submit(handleSignin);
-        $('#registrationForm').submit(handleRegister);
-        // $('#verifyForm').submit(handleVerify);
+        alert ('doc is ready');
+        // $('#signinForm').submit(handleSignin);
+        $('#signinButton').click(handleSignin);
+        $('#registrationButton').click(handleRegister);
     });
 
     function handleSignin(event) {
+        alert ('handle signin called');
         event.preventDefault();
-        //window.location.href = 'account.html';
+        // window.location.href = 'profile.html';
         var email = $('#emailInputSignin').val();
         var password = $('#passwordInputSignin').val();
         signin(email, password,
@@ -110,13 +111,13 @@ var App = window.App || {};
                 window.location.href = 'account.html';
             },
             function signinError(err) {
-                alert('there was an error logging in'+err);
+                alert('there was an error logging in: '+err);
             }
         );
     }
 
-
     function handleRegister(event) {
+        alert ('handle register');
         event.preventDefault();
         var email = $('#emailInputRegister').val();
         var password = $('#passwordInputRegister').val();
