@@ -5,7 +5,6 @@ var App = window.App || {};
 
 (function scopeWrapper($) {
     var signinUrl = 'signin.html';
-    alert ('called scope');
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
         ClientId: _config.cognito.userPoolClientId
@@ -52,14 +51,25 @@ var App = window.App || {};
      * Cognito User Pool functions
      */
 
-    function register(email, password, onSuccess, onFailure) {
+    function register(email, password, username, provider, onSuccess, onFailure) {
+        alert ('register triggered '+ 'username: ' + username + ' Provider: ' + provider);
         var dataEmail = {
             Name: 'email',
             Value: email
         };
+        var isProvider = {
+            Name: 'custom:provider',
+            Value: provider
+        };
+        var dataUsername = {
+            Name: 'name',
+            Value: username
+        };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributeProvider = new AmazonCognitoIdentity.CognitoUserAttribute(isProvider);
+        var attributeUserName = new AmazonCognitoIdentity.CognitoUserAttribute(dataUsername);
 
-        userPool.signUp(email, password, [attributeEmail], null,
+        userPool.signUp(email, password, [attributeEmail, attributeUserName, attributeProvider], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
@@ -94,7 +104,6 @@ var App = window.App || {};
      */
 
     $(function onDocReady() {
-        alert ('doc is ready');
         // $('#signinForm').submit(handleSignin);
         $('#signinButton').click(handleSignin);
         $('#registrationButton').click(handleRegister);
@@ -108,7 +117,9 @@ var App = window.App || {};
         var password = $('#passwordInputSignin').val();
         signin(email, password,
             function signinSuccess() {
-                window.location.href = 'account.html';
+            // this needs a result to tell if it is a provider or recipient
+                // right now the default is the provider
+                window.location.href = 'profile_provider.html';
             },
             function signinError(err) {
                 alert('there was an error logging in: '+err);
@@ -122,16 +133,21 @@ var App = window.App || {};
         var email = $('#emailInputRegister').val();
         var password = $('#passwordInputRegister').val();
         var password2 = $('#password2InputRegister').val();
+        var username = $('#usernameInputRegister').val();
+        var provider = "false"
+        if (document.getElementById("caretakerCheck").checked === true){
+            provider = "true"
+        }
 
         var onSuccess = function registerSuccess(result) {
             alert ('Registration successful. Please check your email inbox or spam folder for your verification code.')
-            window.location.href = 'signin.html';
+            window.location.href = 'index.html';
         };
         var onFailure = function registerFailure(err) {
             alert('error: '+ err);
         };
         if (password === password2) {
-            register(email, password, onSuccess, onFailure);
+            register(email, password, username, provider, onSuccess, onFailure);
         } else {
             alert('Passwords do not match');
         }
