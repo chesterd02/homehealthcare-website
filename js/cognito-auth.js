@@ -47,6 +47,25 @@ var App = window.App || {};
         }
     });
 
+    // https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library/38552302#38552302
+    function parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    };
+
+    App.authToken
+        .then(function setSession(jwtToken) {
+            App.session = parseJwt(jwtToken);
+        })
+        .catch(function handleError() {
+            App.session = null;
+        });
+
     /*
      * Cognito User Pool functions
      */
