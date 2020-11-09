@@ -41,22 +41,19 @@ div.signintitle {
 }
 .button1 {
     background-color: #33c5ff;
-    padding: 14px 128px;
-    font-size: 16px;
-    margin-right: 9%;
+    padding: 14px 90px;
 }
 .button2 {
     text-align: right;
     background-color: #33c5ff;
-    padding: 14px 128px;
-    font-size: 16px;
+    padding: 2px 2px;
     margin-right: 9%;
 }
 .button3  {
     background-color: #33c5ff;
     padding: 14px 60px;
     font-size: 16px;
-    margin-left: 9%;
+    margin-right: 9%;
 }
 .edit_button_rec {
     background-color: #33c5ff;
