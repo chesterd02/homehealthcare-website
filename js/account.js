@@ -18,6 +18,8 @@ var AppId;
     });
 
     $(function onDocReady() {
+        var userId = localStorage.getItem("UserId");
+        alert("Profile's userId: " + userId);
         $('#showCredientials').click(getUserInfo);
         $('#request').click(somefunction);
         $('#changeAlias').click(handleAliasClick);
