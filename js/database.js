@@ -3,6 +3,7 @@
 var App = window.App || {};
 var AppId;
 
+
 function clickUser(userId, isProvider) {
     localStorage.setItem('UserId', userId);
     var page;
@@ -29,35 +30,29 @@ function clickUser(userId, isProvider) {
     });
 
     $(function onDocReady() {
-        setMatchesTitle();
-        requestMatchesInfo();
+        setDatabaseTitle();
+        requestDatabaseInfo();
+        console.log(authToken);
     });
 
-    function setMatchesTitle() {
-        var title = $('#matches-title');
+    function setDatabaseTitle() {
+        var title = $('#database-title');
         if (App.session['custom:provider'] == "true") {
-            title.append('My Recipients');
+            title.append('Database of all Recipients');
         }
         else {
-            title.append('My Providers');
+            title.append('Database of all Providers');
         }
     }
 
-    function requestMatchesInfo() {
+    function requestDatabaseInfo() {
         var body = { };
-        if (App.session['custom:provider'] == "true") {
-            body.MatchProviderId = App.session.sub;
-        }
-        else {
-            body.MatchRecipientId = App.session.sub;
-        }
         $.ajax({
             method: 'POST',
-            url: _config.api.invokeUrl + '/get-matches',
+            url: _config.api.invokeUrl + '/search-info',
             headers: {
                 Authorization: authToken,
             },
-            data: JSON.stringify(body),
             contentType: 'application/json',
             success: updateTable,
             error: function error(jqXHR, textStatus, errorThrown) {
@@ -67,27 +62,21 @@ function clickUser(userId, isProvider) {
     }
 
     function updateTable(result) {
-        var matches;
+        var users = result['Users'];
         var isProvider = App.session['custom:provider'] == "true";
-        if (isProvider) {
-            matches = result['Recipients'];
-        }
-        else {
-            matches = result['Providers'];
-        }
 
-        var isMatchProvider = !isProvider;
-        table = $('#matches-table');
+        var isListedUserProvider = !isProvider;
+        table = $('#database-table');
 
-        matches.forEach(match => {                
+        users.forEach(user => {                
             var id;
-            if (isMatchProvider) {
-                id = match.ProviderId;
+            if (isListedUserProvider) {
+                id = user.ProviderId;
             }
             else {
-                id = match.RecipientId;
+                id = user.RecipientId;
             }
-            table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isMatchProvider + ')\'>' + match.UserName + '</a></td></tr>');
+            table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isListedUserProvider + ')\'>' + user.UserName + '</a></td></tr>');
         });
     }
 }(jQuery));
