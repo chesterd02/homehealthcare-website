@@ -70,13 +70,66 @@ function clickUser(userId, isProvider) {
 
         users.forEach(user => {                
             var id;
+            var providerId;
+            var recipientId;
             if (isListedUserProvider) {
                 id = user.ProviderId;
+                providerId = user.ProviderId;
+                recipientId = App.session.sub;
             }
             else {
                 id = user.RecipientId;
+                recipientId = user.RecipientId;
+                providerId = App.session.sub;
             }
-            table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isListedUserProvider + ')\'>' + user.UserName + '</a></td></tr>');
+            var nameAnchorId = id + '_name';
+            var nameCell = '<td><a id=\"' + nameAnchorId + '\" href=\"#\">' + user.UserName + '</a></td>';
+            var addAnchorId = id + '_add';
+            var addCell = '<td><a id=\"' + addAnchorId + '\" href=\"#\">Add</a></td>';
+            table.append('<tr>' + nameCell + addCell + '</tr>');
+
+            $('#' + nameAnchorId).click(createOnNameClick(id, isListedUserProvider));
+            $('#' + addAnchorId).click(createOnAddClick(providerId, recipientId));
+            // table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isListedUserProvider + ')\'>' + user.UserName + '</a></td></tr>');
         });
     }
+
+    function createOnNameClick(userId, isProvider) {
+        return function() {
+            localStorage.setItem('UserId', userId);
+            var page;
+            if (isProvider) {
+                page = 'provider';
+            }
+            else {
+                page = 'recipient';
+            }
+            window.location.href = 'profile_' + page + '.html';
+        };
+    }
+
+    function createOnAddClick(providerId, recipientId) {
+        return function() {
+            // alert("ProviderId: " + providerId + " recipientId: " + recipientId);
+            body = { 
+                MatchProviderId: providerId,
+                MatchRecipientId: recipientId
+             };
+            jQuery.ajax({
+                method: 'POST',
+                url: _config.api.invokeUrl + '/create-match',
+                headers: {
+                    Authorization: authToken,
+                },
+                data: JSON.stringify(body),
+                contentType: 'application/json',
+                success: function success() { window.location.href = ''; },
+                error: function error(jqXHR, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            })
+        };
+    }
+
+
 }(jQuery));
