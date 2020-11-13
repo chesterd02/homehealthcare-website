@@ -3,18 +3,6 @@
 var App = window.App || {};
 var AppId;
 
-function clickUser(userId, isProvider) {
-    localStorage.setItem('UserId', userId);
-    var page;
-    if (isProvider) {
-        page = 'provider';
-    }
-    else {
-        page = 'recipient';
-    }
-    window.location.href = 'profile_' + page + '.html';
-}
-
 (function AppScopeWrapper($) {
     var authToken;
     App.authToken.then(function setAuthToken(token) {
@@ -87,7 +75,50 @@ function clickUser(userId, isProvider) {
             else {
                 id = match.RecipientId;
             }
-            table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isMatchProvider + ')\'>' + match.UserName + '</a></td></tr>');
+            var matchId = match.MatchId;
+            var nameAnchorId = match.MatchId + '_name';
+            var nameCell = '<td><a id=\"' + nameAnchorId + '\" href=\"#\">' + match.UserName + '</a></td>';
+            var removeAnchorId = match.MatchId + '_remove';
+            var removeCell = '<td><a id=\"' + removeAnchorId + '\" href=\"#\">Remove</a></td>';
+            table.append('<tr>' + nameCell + removeCell + '</tr>');
+
+            $('#' + nameAnchorId).click(createOnNameClick(id, isMatchProvider));
+            $('#' + removeAnchorId).click(createOnRemoveClick(matchId));
         });
     }
+
+    function createOnNameClick(userId, isProvider) {
+        return function() {
+            localStorage.setItem('UserId', userId);
+            var page;
+            if (isProvider) {
+                page = 'provider';
+            }
+            else {
+                page = 'recipient';
+            }
+            window.location.href = 'profile_' + page + '.html';
+        };
+    }
+
+    function createOnRemoveClick(matchId) {
+        return function() {
+            body = { MatchId: matchId };
+            jQuery.ajax({
+                method: 'POST',
+                url: _config.api.invokeUrl + '/delete-match',
+                headers: {
+                    Authorization: authToken,
+                },
+                data: JSON.stringify(body),
+                contentType: 'application/json',
+                success: function success() { window.location.href = ''; },
+                error: function error(jqXHR, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            })
+        };
+    }
+
+
 }(jQuery));
