@@ -4,7 +4,6 @@ var App = window.App || {};
 
 
 (function scopeWrapper($) {
-    var signinUrl = 'signin.html';
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
         ClientId: _config.cognito.userPoolClientId
@@ -13,9 +12,8 @@ var App = window.App || {};
 
     var userPool;
     if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
-        alert('user pool configured');
+        _config.cognito.userPoolClientId &&
+        _config.cognito.region)) {
         $('#noCognitoMessage').show();
         return;
     }
@@ -71,7 +69,6 @@ var App = window.App || {};
      */
 
     function register(email, password, username, provider, onSuccess, onFailure) {
-        alert ('register triggered '+ 'username: ' + username + ' Provider: ' + provider);
         var dataEmail = {
             Name: 'email',
             Value: email
@@ -123,22 +120,21 @@ var App = window.App || {};
      */
 
     $(function onDocReady() {
-        // $('#signinForm').submit(handleSignin);
         $('#signinButton').click(handleSignin);
         $('#registrationButton').click(handleRegister);
     });
 
     function handleSignin(event) {
-        alert ('handle signin called');
         event.preventDefault();
-        // window.location.href = 'profile.html';
         var email = $('#emailInputSignin').val();
         var password = $('#passwordInputSignin').val();
         signin(email, password,
             function signinSuccess() {
-            // this needs a result to tell if it is a provider or recipient
-                // right now the default is the provider
-                window.location.href = 'profile_provider.html';
+                if (App.session['custom:provider'] === "true"){
+                    window.location.href = 'profile_provider.html';
+                }else{
+                    window.location.href = 'profile_recipient.html';
+                }
             },
             function signinError(err) {
                 alert('there was an error logging in: '+err);
@@ -147,7 +143,6 @@ var App = window.App || {};
     }
 
     function handleRegister(event) {
-        alert ('handle register');
         event.preventDefault();
         var email = $('#emailInputRegister').val();
         var password = $('#passwordInputRegister').val();
@@ -156,6 +151,7 @@ var App = window.App || {};
         var provider = "false"
         if (document.getElementById("caretakerCheck").checked === true){
             provider = "true"
+            alert("provider selected");
         }
 
         var onSuccess = function registerSuccess(result) {

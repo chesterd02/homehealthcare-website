@@ -1,13 +1,13 @@
 /*global App _config*/
 
 var App = window.App || {};
-var AppId;
+var providerId;
 
 (function AppScopeWrapper($) {
     var authToken;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
-            alert("Token: " + token);
+            //alert("Token: " + token);
             authToken = token;
         } else {
              window.location.href = 'signin.html';
@@ -18,31 +18,68 @@ var AppId;
     });
 
     $(function onDocReady() {
-        var userId = localStorage.getItem("UserId");
-        alert("Profile's userId: " + userId);
-        $('#showCredientials').click(getUserInfo);
-        $('#request').click(somefunction);
-        $('#changeAlias').click(handleAliasClick);
-        $('#signOut').click(function () {
-            App.signOut();
-            alert("You have been signed out.");
-            window.location = "signin.html";
-        });
-        App.authToken.then(function updateAuthMessage(token) {
-            if (token) {
-                displayUpdate('You are authenticated. Click to see your <a href="#authTokenModal" data-toggle="modal">auth token</a>.');
-                $('.authToken').text(token);
-            }
-        });
-        if (!_config.api.invokeUrl) {
-            $('#noApiMessage').show();
-        }
         requestUserInfo();
+        $('#edit_button').click(handleEditClick);
     });
 
-    function somefunction(){
-
+    function handleEditClick(){
+        alert("Edit clicked");
+        var newName = document.getElementById("edit_name").value;
+        var newAge = document.getElementById("edit_age").value;
+        var newAvailability = document.getElementById("edit_availability").value;
+        var newContact = document.getElementById("edit_contact").value;
+        var newCredentials = document.getElementById("edit_credentials").value;
+        var newEmail = document.getElementById("edit_email").value;
+        var newGender = document.getElementById("edit_gender").value;
+        var newBio = document.getElementById("text_area_bio").value;
+        var newLocation = document.getElementById("edit_location").value;
+        updateUserInfo(
+            newName,
+            newAge,
+            newAvailability,
+            newContact,
+            newCredentials,
+            newEmail,
+            newGender,
+            newBio,
+            newLocation)
     }
+
+    function updateUserInfo (name, age, avail, contact, creds, email, gender, bio, location){
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/updateinfo',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                ProviderId: providerId,
+                UserName: name,
+                Age: age,
+                Availability: avail,
+                ContactInfo: contact,
+                Credentials: creds,
+                Email: email,
+                Gender: gender,
+                Bio: bio,
+                Location: location
+            }),
+            contentType: 'application/json',
+            success: completeUpdateInfo,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred while updating your account info.' + JSON.stringify(jqXHR));
+                //alert('An error occurred when updating your user Info:\n' + JSON.stringify(jqXHR));
+            }
+        });
+    }
+
+    function completeUpdateInfo(){
+        window.location.href = 'profile_provider.html'
+    }
+
+
     function requestUserInfo() {
         $.ajax({
             method: 'POST',
@@ -51,14 +88,58 @@ var AppId;
                 Authorization: authToken
             },
             contentType: 'application/json',
-            success: completeRequest,
+            success: completeUserInfoRequest,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occured while retrieving your account info.');
+                alert('An error occured while retrieving your account info.' + JSON.stringify(jqXHR));
                 // alert('An error occurred when requesting your user Info:\n' + JSON.stringify(jqXHR));
             }
         });
+    }
+
+    function completeUserInfoRequest(result){
+        alert (JSON.stringify(result));
+        //alert ("username: " + result.Items[0].UserName);
+        providerId       = result.Items[0].ProviderId;
+        var username     = result.Items[0].UserName;
+        var email        = result.Items[0].Email;
+        var availability = result.Items[0].Availablility;
+        var age          = result.Items[0].Age;
+        var bio          = result.Items[0].Bio;
+        var contact      = result.Items[0].ContactInfo;
+        var credentials  = result.Items[0].Credentials;
+        var gender       = result.Items[0].Gender;
+        var location     = result.Items[0].Location;
+        //var photo        = result.Items[0].PersonalPhoto
+
+        if (username){
+            document.getElementById("profileName").innerHTML = "Name: " + username;
+        }
+        if (email){
+            document.getElementById("profileEmail").innerHTML = "Email: " + email;
+        }
+        if (availability){
+            document.getElementById("profileAvailability").innerHTML = "Availability: " + availability;
+        }
+        if (age){
+            document.getElementById("profileAge").innerHTML = "Age: " + age;
+        }
+        if (bio){
+            document.getElementById("profileBio").innerHTML = "Bio: " + bio;
+        }
+        if (contact){
+            document.getElementById("profileContact").innerHTML = "Contact: " + contact;
+        }
+        if (credentials){
+            document.getElementById("profileCredentials").innerHTML = "Credentials: " + credentials;
+        }
+        if (gender){
+            document.getElementById("profileGender").innerHTML = "Gender: " + gender;
+        }
+        if (location){
+            document.getElementById("profileLocation").innerHTML = "Location: " + location;
+        }
     }
 
     //*****
@@ -96,10 +177,7 @@ var AppId;
 
     function completeRequest(result){
         alert(JSON.stringify(result));
-
         alert(JSON.stringify(result.matches))
-        loop
-        size
         displayUpdate("this is an update")
     }
 
