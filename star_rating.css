@@ -66,3 +66,7 @@
     color: #000;
     text-shadow: 0 0 5px #F90;
 }
+
+.rating-selected {
+    color: #F90;
+}
