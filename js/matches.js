@@ -80,16 +80,25 @@ var AppId;
             var nameCell = '<td><a id=\"' + nameAnchorId + '\" href=\"#\">' + match.UserName + '</a></td>';
             var removeAnchorId = match.MatchId + '_remove';
             var removeCell = '<td><a id=\"' + removeAnchorId + '\" href=\"#\">Remove</a></td>';
-            table.append('<tr>' + nameCell + removeCell + '</tr>');
+            var reviewAnchorId = match.MatchId + '_review';
+            var reviewCell = '<td><a id=\"' + reviewAnchorId + '\" href=\"#\">Add Review</a></td>';
+            table.append('<tr>' + nameCell + removeCell + reviewCell + '</tr>');
 
             $('#' + nameAnchorId).click(createOnNameClick(id, isMatchProvider));
             $('#' + removeAnchorId).click(createOnRemoveClick(matchId));
+            $('#' + reviewAnchorId).click(createOnReviewClick(id));
         });
+    }
+
+    function createOnReviewClick(id) {
+        return function() {
+            window.location.href = 'create_review.html?RevieweeId=' + id;
+        };
     }
 
     function createOnNameClick(userId, isProvider) {
         return function() {
-            localStorage.setItem('UserId', userId);
+            localStorage.setItem('ClickedId', userId);
             var page;
             if (isProvider) {
                 page = 'provider';

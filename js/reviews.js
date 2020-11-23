@@ -57,7 +57,13 @@ var AppId;
         }
         else {
             result['Reviews'].forEach(review => {
-                // alert(JSON.stringify(review));
+                alert(JSON.stringify(review));
+                var deleteReview = '';
+                var deleteId = review['ReviewId'] + '_delete'
+                if (review['IsMyReview'] == true) {
+                    deleteReview = '<a id=\"' + deleteId + '\" href=\"#\">Delete Review</a>';
+                }
+
                 var ReviewerUsername = review['ReviewerUser']['UserName'];
                 var ReviewText = review['Review'];
                 var StarRating = review['Rating'];
@@ -78,9 +84,31 @@ var AppId;
                 var reviewRatingItem = '<p>' + highlightedStars + unhighlightedStars + '</p>';
 
                 var reviewTextItem = '<p>' + ReviewText + '</p>';
-                var reviewItem = '<div class=\"review-item\">' + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
+                var reviewItem = '<div class=\"review-item\">' + deleteReview + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
                 reviewsList.append(reviewItem);
+                if (review['IsMyReview'] == true) {
+                    $('#' + deleteId).click(createOnDeleteReviewClick(review['ReviewId']));
+                }
             });
         }
+    }
+
+    function createOnDeleteReviewClick(reviewId) {
+        return function() {
+            body = { ReviewId: reviewId };
+            jQuery.ajax({
+                method: 'POST',
+                url: _config.api.invokeUrl + '/delete-review',
+                headers: {
+                    Authorization: authToken,
+                },
+                data: JSON.stringify(body),
+                contentType: 'application/json',
+                success: function success() { window.location.href = ''; },
+                error: function error(jqXHR, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            })
+        };
     }
 }(jQuery));

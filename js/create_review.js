@@ -29,10 +29,9 @@ var AppId;
     });
 
     function getPageParams() {
-        ReviewId = localStorage.getItem("ReviewId");
-        RevieweeId = localStorage.getItem("RevieweeId");
-        // RevieweeId = "3333";
-        // ReviewId = "RA3A3";
+        const urlParams = new URLSearchParams(window.location.search);
+        ReviewId = urlParams.get('ReviewId');
+        RevieweeId = urlParams.get('RevieweeId');
     }
 
     function initHandlers() {
@@ -69,6 +68,7 @@ var AppId;
             contentType: 'application/json',
             success: function() {
                 alert('Review Saved!')
+                window.location.href = 'matches.html'
             },
             error: function error(jqXHR, textStatus, errorThrown) {
                 console.error(errorThrown);
