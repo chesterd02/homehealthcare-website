@@ -4,10 +4,7 @@ var App = window.App || {};
 var AppId;
 
 (function AppScopeWrapper($) {
-    var ReviewId;
     var RevieweeId;
-    var StarRating;
-    var ReviewText;
     var authToken;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
@@ -26,9 +23,9 @@ var AppId;
     });
 
     function getPageParams() {
-        RevieweeId = localStorage.getItem("RevieweeId");
-        ReviewerId = localStorage.getItem("ReviewerId");
-        RevieweeId = "3333";
+        const urlParams = new URLSearchParams(window.location.search);
+        RevieweeId = urlParams.get('RevieweeId');
+        ReviewerId = urlParams.get('ReviewerId');
     }
 
     function requestReviewInfo() {
@@ -54,30 +51,36 @@ var AppId;
 
     function updateReviews(result) {
         var reviewsList = $('#reviews-list');
-        result['Reviews'].forEach(review => {
-            alert(JSON.stringify(review));
-            var ReviewerUsername = review['ReviewerUser']['UserName'];
-            var ReviewText = review['Review'];
-            var StarRating = review['Rating'];
+        if (result['Reviews'].length == 0) {
+            noReviewsItem = '<p>There are no reviews for this user yet.</p>';
+            reviewsList.append(noReviewsItem);
+        }
+        else {
+            result['Reviews'].forEach(review => {
+                // alert(JSON.stringify(review));
+                var ReviewerUsername = review['ReviewerUser']['UserName'];
+                var ReviewText = review['Review'];
+                var StarRating = review['Rating'];
 
-            var reviewerUsernameItem = '<h2>' + ReviewerUsername + '</h2>';
+                var reviewerUsernameItem = '<h2>' + ReviewerUsername + '</h2>';
 
-            var highlightedStarsText = '';
-            var unhighlightedStarsText = '';
-            for (var i = 0; i < 5; i++) {
-                if (i < StarRating) {
-                    highlightedStarsText += '&starf;';
-                } else {
-                    unhighlightedStarsText += '&starf;';
+                var highlightedStarsText = '';
+                var unhighlightedStarsText = '';
+                for (var i = 0; i < 5; i++) {
+                    if (i < StarRating) {
+                        highlightedStarsText += '&starf;';
+                    } else {
+                        unhighlightedStarsText += '&starf;';
+                    }
                 }
-            }
-            var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
-            var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
-            var reviewRatingItem = '<p>' + highlightedStars + unhighlightedStars + '</p>';
+                var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
+                var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
+                var reviewRatingItem = '<p>' + highlightedStars + unhighlightedStars + '</p>';
 
-            var reviewTextItem = '<p>' + ReviewText + '</p>';
-            var reviewItem = '<div class=\"review-item\">' + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
-            reviewsList.append(reviewItem);
-        });
+                var reviewTextItem = '<p>' + ReviewText + '</p>';
+                var reviewItem = '<div class=\"review-item\">' + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
+                reviewsList.append(reviewItem);
+            });
+        }
     }
 }(jQuery));

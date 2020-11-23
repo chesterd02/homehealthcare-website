@@ -1,35 +1,39 @@
 <html>
-    <link rel="stylesheet" href="styles.css" />
-    <ul>
-        <li><a href="profile_provider.html">Profile</a></li> 
-        <li><a href="database_everyone.html">Database</a></li>
-        <li><a href="matches.html">My Matches</a></li>
-        <li><a href="reviews.html">My Reviews</a></li>
-    </ul>
-    <div class="profileHead">
-        <h1>Provider Profile Page</h1>
-    </div>
-    
-    <body style="background-color: antiquewhite; font-family: georgia;">
-        <img src="health_care.png" width="200px" height="200px"/>
-        <p id="profileName">Name: </p>
-        <p id="profileAge">Age: </p>
-        <p id="profileAvailability">Availability: </p>
-        <p id="profileBio">Bio:</p>
-        <p id="profileContact">Contact: ***********</p>
-        <p id="profileCredentials">Credentials: </p>
-        <p id="profileLocation">Location: </p>
-        <p id="profileEmail">Email: *************</p>
-        <p id="profileGender">Gender: </p>
-        <button class="button edit_profile" onclick="window.location.href='edit.html';">Edit Profile</button>
+<link rel="stylesheet" href="styles.css" />
+<ul>
+    <li><a href="profile_provider.html">Profile</a></li>
+    <li><a href="database_everyone.html">Database</a></li>
+    <li><a href="matches.html">My Matches</a></li>
+    <li><a href="reviews.html">My Reviews</a></li>
+</ul>
+<div class="profileHead">
+    <h1>Provider Profile Page</h1>
+</div>
 
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="https://js.arcgis.com/4.3/"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-        <script src="js/account.js"></script>
-    </body>
+<body style="background-color: antiquewhite; font-family: georgia;">
+    <img src="health_care.png" width="200px" height="200px" />
+    <p id="profileName">Name: </p>
+    <p id="profileAge">Age: </p>
+    <p id="profileAvailability">Availability: </p>
+    <p id="profileBio">Bio:</p>
+    <p id="profileContact">Contact: ***********</p>
+    <p id="profileCredentials">Credentials: </p>
+    <p id="profileLocation">Location: </p>
+    <p id="profileEmail">Email: *************</p>
+    <p id="profileGender">Gender: </p>
+    <button class="button edit_profile" onclick="window.location.href='edit.html';">Edit Profile</button>
+    <p>
+        <button id="viewReviews" class="button edit_profile">View Reviews</button>
+    </p>
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="https://js.arcgis.com/4.3/"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/account.js"></script>
+</body>
+
 </html>

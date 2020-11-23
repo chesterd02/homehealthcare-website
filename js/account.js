@@ -10,7 +10,7 @@ var providerId;
             //alert("Token: " + token);
             authToken = token;
         } else {
-             window.location.href = 'signin.html';
+            window.location.href = 'signin.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
@@ -21,14 +21,14 @@ var providerId;
         requestUserInfo();
         $('#edit_button').click(handleEditClick);
         let clickedId = localStorage.getItem("ClickedId");
-        alert ("this clickedId: " + clickedId);
-        if (clickedId !== "null"){
+        alert("this clickedId: " + clickedId);
+        if (clickedId !== "null") {
             getClickedIdInfo(clickedId);
         }
         localStorage.setItem("ClickedId", null);
     });
 
-    function getClickedIdInfo (clickedId){
+    function getClickedIdInfo(clickedId) {
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/getclickedinfo',
@@ -49,51 +49,68 @@ var providerId;
         });
     }
 
-    function completeClickedInfo(result){
-        alert ("result: " + JSON.stringify(result));
-        var username     = result.Items[0].UserName;
-        alert ("Username: "+ username);
-        var email        = result.Items[0].Email;
-        var availability = result.Items[0].Availablility;
-        var age          = result.Items[0].Age;
-        var bio          = result.Items[0].Bio;
-        var contact      = result.Items[0].ContactInfo;
-        var credentials  = result.Items[0].Credentials;
-        var gender       = result.Items[0].Gender;
-        var location     = result.Items[0].Location;
+    function completeClickedInfo(result) {
+        result = result.Items[0];
+        // alert("result: " + JSON.stringify(result));
+        var username = result.UserName;
+        // alert("Username: " + username);
+        var email = result.Email;
+        var availability = result.Availablility;
+        var age = result.Age;
+        var bio = result.Bio;
+        var contact = result.ContactInfo;
+        var credentials = result.Credentials;
+        var gender = result.Gender;
+        var location = result.Location;
         //var photo        = result.Items[0].PersonalPhoto
 
-        if (username){
+        if (username) {
             document.getElementById("profileName").innerHTML = "Name: " + username;
-        } else{document.getElementById("profileName").style.display = "none";}
-        if (email){
+        } else { document.getElementById("profileName").style.display = "none"; }
+        if (email) {
             document.getElementById("profileEmail").innerHTML = "Email: " + email;
-        }else{document.getElementById("profileEmail").style.display = "none";}
-        if (availability){
+        } else { document.getElementById("profileEmail").style.display = "none"; }
+        if (availability) {
             document.getElementById("profileAvailability").innerHTML = "Availability: " + availability;
-        }else{document.getElementById("profileAvailability").style.display = "none";}
-        if (age){
+        } else { document.getElementById("profileAvailability").style.display = "none"; }
+        if (age) {
             document.getElementById("profileAge").innerHTML = "Age: " + age;
-        }else{document.getElementById("profileAge").style.display = "none";}
-        if (bio){
+        } else { document.getElementById("profileAge").style.display = "none"; }
+        if (bio) {
             document.getElementById("profileBio").innerHTML = "Bio: " + bio;
-        }else{document.getElementById("profileBio").style.display = "none";}
-        if (contact){
+        } else { document.getElementById("profileBio").style.display = "none"; }
+        if (contact) {
             document.getElementById("profileContact").innerHTML = "Contact: " + contact;
-        }else{document.getElementById("profileContact").style.display = "none";}
-        if (credentials){
+        } else { document.getElementById("profileContact").style.display = "none"; }
+        if (credentials) {
             document.getElementById("profileCredentials").innerHTML = "Credentials: " + credentials;
-        }else{document.getElementById("profileCredentials").style.display = "none";}
-        if (gender){
+        } else { document.getElementById("profileCredentials").style.display = "none"; }
+        if (gender) {
             document.getElementById("profileGender").innerHTML = "Gender: " + gender;
-        }else{document.getElementById("profileGender").style.display = "none";}
-        if (location){
+        } else { document.getElementById("profileGender").style.display = "none"; }
+        if (location) {
             document.getElementById("profileLocation").innerHTML = "Location: " + location;
-        }else{document.getElementById("profileLocation").style.display = "none";}
+        } else { document.getElementById("profileLocation").style.display = "none"; }
         document.getElementById("editButton").style.display = "none";
+
+        var clickedId;
+        if (result.RecipientId != null) {
+            clickedId = result.RecipientId;
+        }
+        else {
+            clickedId = result.ProviderId;
+        }
+        $("#viewReviews").click(createViewReviewsClicked(clickedId));
+        document.getElementById("viewReviews").style.display = "inline";
     }
 
-    function handleEditClick(){
+    function createViewReviewsClicked(revieweeId) {
+        return function () {
+            window.location.href = 'reviews.html?RevieweeId=' + revieweeId;
+        }
+    }
+
+    function handleEditClick() {
         //alert("Edit clicked");
         var newName = document.getElementById("edit_name").value;
         var newAge = document.getElementById("edit_age").value;
@@ -116,7 +133,7 @@ var providerId;
             newLocation)
     }
 
-    function updateUserInfo (name, age, avail, contact, creds, email, gender, bio, location){
+    function updateUserInfo(name, age, avail, contact, creds, email, gender, bio, location) {
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/updateinfo',
@@ -146,7 +163,7 @@ var providerId;
         });
     }
 
-    function completeUpdateInfo(){
+    function completeUpdateInfo() {
         window.location.href = 'profile_provider.html'
     }
 
@@ -169,62 +186,65 @@ var providerId;
         });
     }
 
-    function completeUserInfoRequest(result){
+    function completeUserInfoRequest(result) {
         //alert (JSON.stringify(result));
         //alert ("username: " + result.Items[0].UserName);
-        providerId       = result.Items[0].ProviderId;
-        var username     = result.Items[0].UserName;
-        var email        = result.Items[0].Email;
-        var availability = result.Items[0].Availablility;
-        var age          = result.Items[0].Age;
-        var bio          = result.Items[0].Bio;
-        var contact      = result.Items[0].ContactInfo;
-        var credentials  = result.Items[0].Credentials;
-        var gender       = result.Items[0].Gender;
-        var location     = result.Items[0].Location;
+        result = result.Items[0];
+        providerId = result.ProviderId;
+        var username = result.UserName;
+        var email = result.Email;
+        var availability = result.Availablility;
+        var age = result.Age;
+        var bio = result.Bio;
+        var contact = result.ContactInfo;
+        var credentials = result.Credentials;
+        var gender = result.Gender;
+        var location = result.Location;
         //var photo        = result.Items[0].PersonalPhoto
 
-        if (username){
+        if (username) {
             document.getElementById("profileName").innerHTML = "Name: " + username;
         }
-        if (email){
+        if (email) {
             document.getElementById("profileEmail").innerHTML = "Email: " + email;
         }
-        if (availability){
+        if (availability) {
             document.getElementById("profileAvailability").innerHTML = "Availability: " + availability;
         }
-        if (age){
+        if (age) {
             document.getElementById("profileAge").innerHTML = "Age: " + age;
         }
-        if (bio){
+        if (bio) {
             document.getElementById("profileBio").innerHTML = "Bio: " + bio;
         }
-        if (contact){
+        if (contact) {
             document.getElementById("profileContact").innerHTML = "Contact: " + contact;
         }
-        if (credentials){
+        if (credentials) {
             document.getElementById("profileCredentials").innerHTML = "Credentials: " + credentials;
         }
-        if (gender){
+        if (gender) {
             document.getElementById("profileGender").innerHTML = "Gender: " + gender;
         }
-        if (location){
+        if (location) {
             document.getElementById("profileLocation").innerHTML = "Location: " + location;
         }
+
+        document.getElementById("viewReviews").style.display = "none";
     }
 
     //*****
     //*******HANDLE  CHANGE
-    function handleAliasClick(event){
+    function handleAliasClick(event) {
         event.preventDefault();
-        var newAlias = prompt ("Enter your new Alias:")
-        if (newAlias == null || newAlias == ""){
+        var newAlias = prompt("Enter your new Alias:")
+        if (newAlias == null || newAlias == "") {
             alert("cancelled");
-        }else{
+        } else {
             updateAlias(newAlias)
         }
     }
-    function updateAlias(newAlias){
+    function updateAlias(newAlias) {
         //alert('new alias will be: '+ newAlias);
         $.ajax({
             method: 'POST',
@@ -246,9 +266,9 @@ var providerId;
         });
     }
 
-    function completeRequest(result){
-        alert(JSON.stringify(result));
-        alert(JSON.stringify(result.matches))
+    function completeRequest(result) {
+        // alert(JSON.stringify(result));
+        // alert(JSON.stringify(result.matches))
         displayUpdate("this is an update")
     }
 
