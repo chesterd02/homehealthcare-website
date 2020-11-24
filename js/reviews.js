@@ -19,7 +19,7 @@ var AppId;
 
     $(function onDocReady() {
         getPageParams();
-        if (RevieweeId != null && ReviewerId != null) {
+        if (RevieweeId != null || ReviewerId != null) {
             $("#reviews-written-title").hide();
             $("#reviews-written-list").hide();
             requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false);
