@@ -18,12 +18,14 @@ var providerId;
     });
 
     $(function onDocReady() {
-        requestUserInfo();
         $('#edit_button').click(handleEditClick);
         const urlParams = new URLSearchParams(window.location.search);
         var profileId = urlParams.get('ProfileId');
         if (profileId != null) {
             getClickedIdInfo(profileId);
+        }
+        else {
+            requestUserInfo();
         }
     });
 
