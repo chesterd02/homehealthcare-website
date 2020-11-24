@@ -145,18 +145,19 @@ td {
     text-align: center;
 }
 
-ul {
+ul.navbar {
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    list-style-type: none;
 }
 
-li {
+ul.navbar>li {
     float: left;
 }
 
-li a {
+ul.navbar>li>a {
     display: block;
     color: white;
     text-align: center;
@@ -168,6 +169,6 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 
-li a:hover {
+ul.navbar>li>a:hover {
     background-color: #111;
 }

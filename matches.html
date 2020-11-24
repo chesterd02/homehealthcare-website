@@ -1,32 +1,32 @@
 <html>
-    <link rel="stylesheet" href="styles.css" />
-    <body style="background-color: antiquewhite;">
-      <ul>
-        <!-- need to change profile link based on provider or recipient -->
-        <li><a href="profile_provider.html">Profile</a></li> 
-        <li><a href="database_everyone.html">Database</a></li>
-        <li><a href="matches.html">My Matches</a></li>
-        <li><a href="reviews.html">My Reviews</a></li>
-      </ul>
-      <div class="dataHead">
-          <h1 id="matches-title"></h1>
-      </div>
-        <table style="width:100%" id="matches-table">
-            <tr>
-              <th>Full Name</th>
-              <th>Review</th>
-              <th>Remove Match</th>
-            </tr>
-          </table>
+<link rel="stylesheet" href="styles.css" />
 
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-        <script src="js/matches.js"></script>
-    </body>
+<body style="background-color: antiquewhite;">
+  <ul class="navbar">
+    <!-- need to change profile link based on provider or recipient -->
+    <li><a href="profile_provider.html">Profile</a></li>
+    <li><a href="database_everyone.html">Database</a></li>
+    <li><a href="matches.html">My Matches</a></li>
+    <li><a href="reviews.html">My Reviews</a></li>
+  </ul>
+  <div class="dataHead">
+    <h1 id="matches-title"></h1>
+  </div>
+  <table style="width:100%" id="matches-table">
+    <tr>
+      <th>Full Name</th>
+      <th>Review</th>
+      <th>Remove Match</th>
+    </tr>
+  </table>
+
+  <script src="js/vendor/jquery-3.1.0.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/cognito-auth.js"></script>
+  <script src="js/matches.js"></script>
+</body>
+
 </html>
-
-
