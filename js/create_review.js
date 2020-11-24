@@ -129,6 +129,8 @@ var AppId;
                 success: function (result) {
                     var username = result.Items[0].UserName;
                     $('#review-username').append('Review for: ' + username);
+                    $('.spinner').hide();
+                    $('.content').show();
                 },
                 error: function ajaxError(jqXHR, textStatus, errorThrown) {
                     console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
@@ -172,7 +174,7 @@ var AppId;
 
             var starRatingWidget = $('#stars' + StarRating)
             starRatingWidget.prop('checked', true);
-            RevieweeId = review['RevieweeId'];                
+            RevieweeId = review['RevieweeId'];
             requestUserInfo();
         }
     }
