@@ -103,6 +103,8 @@ var providerId;
         }
         $("#viewReviews").click(createViewReviewsClicked(clickedId));
         $("#viewReviews").show();
+        $('.spinner').hide();
+        $('.content').show();
     }
 
     function createViewReviewsClicked(revieweeId) {
@@ -232,6 +234,8 @@ var providerId;
         }
 
         $("#viewReviews").hide();
+        $('.spinner').hide();
+        $('.content').show();
     }
 
     //*****

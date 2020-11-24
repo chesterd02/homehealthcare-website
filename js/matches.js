@@ -116,6 +116,8 @@ var AppId;
                 $('#' + reviewObject.DeleteReviewAnchorId).click(createOnDeleteReviewClick(reviewObject.MatchReviewId));
             }
         });
+        $('.spinner').hide();
+        $('.content').show();
     }
 
     function getReviewObject(id, matchId) {

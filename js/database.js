@@ -94,6 +94,8 @@ function clickUser(profileId, isProvider) {
             $('#' + addAnchorId).click(createOnAddClick(providerId, recipientId));
             // table.append('<tr><td><a href=\'javascript:clickUser(\"' + id + '\", ' + isListedUserProvider + ')\'>' + user.UserName + '</a></td></tr>');
         });
+        $('.spinner').hide();
+        $('.content').show();
     }
 
     function createOnNameClick(profileId, isProvider) {

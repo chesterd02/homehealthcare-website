@@ -22,12 +22,12 @@ var AppId;
         if (RevieweeId != null || ReviewerId != null) {
             $("#reviews-written-title").hide();
             $("#reviews-written-list").hide();
-            requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false);
+            requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false, true);
         }
         else {
             var userId = App.session.sub;
-            requestReviewInfo("RevieweeId", userId, "reviews-received-list", false);
-            requestReviewInfo("ReviewerId", userId, "reviews-written-list", true);
+            requestReviewInfo("RevieweeId", userId, "reviews-received-list", false, false);
+            requestReviewInfo("ReviewerId", userId, "reviews-written-list", true, true);
         }
     });
 
@@ -37,7 +37,7 @@ var AppId;
         ReviewerId = urlParams.get('ReviewerId');
     }
 
-    function requestReviewInfo(GetId, Id, ListId, DisplayRevieweeName) {
+    function requestReviewInfo(GetId, Id, ListId, DisplayRevieweeName, finalCall) {
         var body = {
             [GetId]: Id
         };
@@ -50,7 +50,7 @@ var AppId;
             data: JSON.stringify(body),
             contentType: 'application/json',
             success: function (Result) {
-                updateReviews(ListId, Result, DisplayRevieweeName);
+                updateReviews(ListId, Result, DisplayRevieweeName, finalCall);
             },
             error: function error(jqXHR, textStatus, errorThrown) {
                 console.error(errorThrown);
@@ -58,7 +58,7 @@ var AppId;
         });
     }
 
-    function updateReviews(ListId, Result, DisplayRevieweeName) {
+    function updateReviews(ListId, Result, DisplayRevieweeName, finalCall) {
         var reviewsList = $('#' + ListId);
         if (Result['Reviews'].length == 0) {
             noReviewsItem = '<p>There are no reviews for this user yet.</p>';
@@ -107,6 +107,10 @@ var AppId;
                     $('#' + changeId).click(createOnChangeReviewClick(review['ReviewId']));
                 }
             });
+        }
+        if (finalCall) {
+            $('.spinner').hide();
+            $('.content').show();
         }
     }
 
