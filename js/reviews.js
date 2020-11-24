@@ -19,7 +19,16 @@ var AppId;
 
     $(function onDocReady() {
         getPageParams();
-        requestReviewInfo();
+        if (RevieweeId != null && ReviewerId != null) {
+            $("#reviews-written-title").hide();
+            $("#reviews-written-list").hide();
+            requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false);
+        }
+        else {
+            var userId = App.session.sub;
+            requestReviewInfo("RevieweeId", userId, "reviews-received-list", false);
+            requestReviewInfo("ReviewerId", userId, "reviews-written-list", true);
+        }
     });
 
     function getPageParams() {
@@ -28,47 +37,55 @@ var AppId;
         ReviewerId = urlParams.get('ReviewerId');
     }
 
-    function requestReviewInfo() {
-        if (RevieweeId != null) {
-            var body = {
-                RevieweeId: RevieweeId
-            };
-            $.ajax({
-                method: 'POST',
-                url: _config.api.invokeUrl + '/get-reviews',
-                headers: {
-                    Authorization: authToken,
-                },
-                data: JSON.stringify(body),
-                contentType: 'application/json',
-                success: updateReviews,
-                error: function error(jqXHR, textStatus, errorThrown) {
-                    console.error(errorThrown);
-                }
-            });
-        }
+    function requestReviewInfo(GetId, Id, ListId, DisplayRevieweeName) {
+        var body = {
+            [GetId]: Id
+        };
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/get-reviews',
+            headers: {
+                Authorization: authToken,
+            },
+            data: JSON.stringify(body),
+            contentType: 'application/json',
+            success: function (Result) {
+                updateReviews(ListId, Result, DisplayRevieweeName);
+            },
+            error: function error(jqXHR, textStatus, errorThrown) {
+                console.error(errorThrown);
+            }
+        });
     }
 
-    function updateReviews(result) {
-        var reviewsList = $('#reviews-list');
-        if (result['Reviews'].length == 0) {
+    function updateReviews(ListId, Result, DisplayRevieweeName) {
+        var reviewsList = $('#' + ListId);
+        if (Result['Reviews'].length == 0) {
             noReviewsItem = '<p>There are no reviews for this user yet.</p>';
             reviewsList.append(noReviewsItem);
         }
         else {
-            result['Reviews'].forEach(review => {
+            Result['Reviews'].forEach(review => {
                 // alert(JSON.stringify(review));
                 var deleteReview = '';
                 var deleteId = review['ReviewId'] + '_delete'
+                var changeReview = '';
+                var changeId = review['ReviewId'] + '_change'
                 if (review['IsMyReview'] == true) {
-                    deleteReview = '<a id=\"' + deleteId + '\" href=\"#\">Delete Review</a>';
+                    deleteReview = '<a style=\"margin-left:20px;\" id=\"' + deleteId + '\" href=\"#\">Delete Review</a>';
+                    changeReview = '<a id=\"' + changeId + '\" href=\"#\">Change Review</a>';
+                }
+
+                var revieweeName = '';
+                if (DisplayRevieweeName == true) {
+                    revieweeName = '<h2>' + review['RevieweeUser']['UserName'] + '</h2>';
                 }
 
                 var ReviewerUsername = review['ReviewerUser']['UserName'];
                 var ReviewText = review['Review'];
                 var StarRating = review['Rating'];
 
-                var reviewerUsernameItem = '<h2>' + ReviewerUsername + '</h2>';
+                var reviewerUsernameItem = '<p>' + ReviewerUsername + '</p>';
 
                 var highlightedStarsText = '';
                 var unhighlightedStarsText = '';
@@ -81,20 +98,27 @@ var AppId;
                 }
                 var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
                 var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
-                var reviewRatingItem =  highlightedStars + unhighlightedStars;
+                var reviewRatingItem = highlightedStars + unhighlightedStars;
 
                 var reviewTextItem = '<p>' + ReviewText + '</p>';
-                var reviewItem = '<div class=\"review-item\"> <div class=\"review-bubble\"><div>' + reviewRatingItem + reviewTextItem + deleteReview + '</div></div><div>' + reviewerUsernameItem + '</div></div>';
+                var reviewItem = '<div class=\"review-item\"> <div class=\"review-bubble\">' + revieweeName + reviewRatingItem + reviewTextItem + changeReview + deleteReview + '</div><div>' + reviewerUsernameItem + '</div></div>';
                 reviewsList.append(reviewItem);
                 if (review['IsMyReview'] == true) {
                     $('#' + deleteId).click(createOnDeleteReviewClick(review['ReviewId']));
+                    $('#' + changeId).click(createOnChangeReviewClick(review['ReviewId']));
                 }
             });
         }
     }
 
+    function createOnChangeReviewClick(matchReviewId) {
+        return function () {
+            window.location.href = 'create_review.html?ReviewId=' + matchReviewId;
+        };
+    }
+
     function createOnDeleteReviewClick(reviewId) {
-        return function() {
+        return function () {
             body = { ReviewId: reviewId };
             jQuery.ajax({
                 method: 'POST',

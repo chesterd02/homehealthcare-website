@@ -101,7 +101,7 @@ var providerId;
             clickedId = result.ProviderId;
         }
         $("#viewReviews").click(createViewReviewsClicked(clickedId));
-        document.getElementById("viewReviews").style.display = "inline";
+        $("#viewReviews").show();
     }
 
     function createViewReviewsClicked(revieweeId) {
@@ -230,7 +230,7 @@ var providerId;
             document.getElementById("profileLocation").innerHTML = "Location: " + location;
         }
 
-        document.getElementById("viewReviews").style.display = "none";
+        $("#viewReviews").hide();
     }
 
     //*****
