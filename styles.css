@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+}
+
 div.title {
     text-align: center;
     font-size: 40px;
@@ -25,12 +29,14 @@ div.heading {
     margin-right: 8.5%;
 }
 
-div.profileHead {
-    text-align: center;
+div.content {
+    text-align: left;
+    margin: auto;
+    width: 800px;
 }
 
-div.dataHead {
-    text-align: center;
+div.form {
+    text-align: left;
 }
 
 div.b {

@@ -10,59 +10,59 @@
         <li><a href="matches.html">My Matches</a></li>
         <li><a href="reviews.html">My Reviews</a></li>
     </ul>
-    <div class="dataHead">
+    <div class="content">
         <h1 id="review-title"></h1>
-    </div>
 
-    <div id="review-username"></div>
+        <div id="review-username"></div>
 
 
-    <p>Star Rating:
-        <!-- Star Rating
+        <p>Star Rating:
+            <!-- Star Rating
              https://codepen.io/neilpomerleau/pen/wzxzQr -->
-    <div class="rating">
-        <label>
-            <input type="radio" id="stars1" name="stars" value="1" />
-            <span class="icon">★</span>
-        </label>
-        <label>
-            <input type="radio" id="stars2" name="stars" value="2" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-        </label>
-        <label>
-            <input type="radio" id="stars3" name="stars" value="3" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-        </label>
-        <label>
-            <input type="radio" id="stars4" name="stars" value="4" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-        </label>
-        <label>
-            <input type="radio" id="stars5" name="stars" value="5" />
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-        </label>
+        <div class="rating">
+            <label>
+                <input type="radio" id="stars1" name="stars" value="1" />
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" id="stars2" name="stars" value="2" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" id="stars3" name="stars" value="3" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" id="stars4" name="stars" value="4" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+            <label>
+                <input type="radio" id="stars5" name="stars" value="5" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+            </label>
+        </div>
+        </p>
+
+        <p>
+            <label for="review_text">Review: </label>
+        </p>
+        <textarea id="review_text" name="review_text" rows="10" cols="60">Enter your review here...</textarea>
+
+        <p>
+            <input type="button" id="save-button" value="">
+        </p>
+
     </div>
-    </p>
-
-    <p>
-        <label for="review_text">Review: </label>
-    </p>
-    <textarea id="review_text" name="review_text" rows="10" cols="60">Enter your review here...</textarea>
-
-    <p>
-        <input type="button" id="save-button" value="">
-    </p>
-
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>

@@ -1,37 +1,40 @@
 <html>
 <link rel="stylesheet" href="styles.css" />
-<ul class="navbar">
-    <!-- need to change profile link based on provider or recipient -->
-    <li><a href="profile_recipient.html">Profile</a></li>
-    <li><a href="database_everyone.html">Database</a></li>
-    <li><a href="matches.html">My Matches</a></li>
-    <li><a href="reviews.html">My Reviews</a></li>
-</ul>
-<div class="profileHead">
-    <h1> Edit Profile Page</h1>
-</div>
 
 <body style="background-color: antiquewhite;">
-    <img src="health_care.png" width="200px" height="200px" />
-    <p>Full Name: <label for="edit_name_rec"></label>
-        <input type="text" id="edit_name_rec" name="edit_name_rec"></p>
-    <p>Caretaker: <label for="edit_caretaker_rec"></label>
-        <input type="text" id="edit_caretaker_rec" name="edit_caretaker_rec"></p>
-    <p>Phone number: <label for="edit_phone_rec"></label>
-        <input type="text" id="edit_phone_rec" name="edit_phone_rec"></p>
-    <p>Address: <label for="edit_address_rec"></label>
-        <input type="text" id="edit_address_rec" name="edit_address_rec"></p>
-    <p>State: <label for="edit_state_rec"></label>
-        <input type="text" id="edit_state_rec" name="edit_state_rec"></p>
-    <p>Zip Code: <label for="edit_zip_rec"></label>
-        <input type="text" id="edit_zip_rec" name="edit_zip_rec"></p>
-    <p>Email: <label for="edit_email_rec"></label>
-        <input type="text" id="edit_email_rec" name="edit_email_rec"></p>
-    <div class="edit_rec">
-        <p>List of Needs: </p><textarea name="edit_needs_rec" rows="10" cols="60"></textarea>
-        <p></p>
+    <ul class="navbar">
+        <!-- need to change profile link based on provider or recipient -->
+        <li><a href="profile_recipient.html">Profile</a></li>
+        <li><a href="database_everyone.html">Database</a></li>
+        <li><a href="matches.html">My Matches</a></li>
+        <li><a href="reviews.html">My Reviews</a></li>
+    </ul>
+    <div class="content">
+        <h1> Edit Profile Page</h1>
+        <div class="form">
+
+            <img src="health_care.png" width="200px" height="200px" />
+            <p>Full Name: <label for="edit_name_rec"></label>
+                <input type="text" id="edit_name_rec" name="edit_name_rec"></p>
+            <p>Caretaker: <label for="edit_caretaker_rec"></label>
+                <input type="text" id="edit_caretaker_rec" name="edit_caretaker_rec"></p>
+            <p>Phone number: <label for="edit_phone_rec"></label>
+                <input type="text" id="edit_phone_rec" name="edit_phone_rec"></p>
+            <p>Address: <label for="edit_address_rec"></label>
+                <input type="text" id="edit_address_rec" name="edit_address_rec"></p>
+            <p>State: <label for="edit_state_rec"></label>
+                <input type="text" id="edit_state_rec" name="edit_state_rec"></p>
+            <p>Zip Code: <label for="edit_zip_rec"></label>
+                <input type="text" id="edit_zip_rec" name="edit_zip_rec"></p>
+            <p>Email: <label for="edit_email_rec"></label>
+                <input type="text" id="edit_email_rec" name="edit_email_rec"></p>
+            <div class="edit_rec">
+                <p>List of Needs: </p><textarea name="edit_needs_rec" rows="10" cols="60"></textarea>
+                <p></p>
+            </div>
+            <button class="button edit_button_rec" onclick="window.location.href='profile.html';">Save Changes</button>
+        </div>
     </div>
-    <button class="button edit_button_rec" onclick="window.location.href='profile.html';">Save Changes</button>
 </body>
 
 </html>
