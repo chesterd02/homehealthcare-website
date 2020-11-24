@@ -57,7 +57,7 @@ var AppId;
         }
         else {
             result['Reviews'].forEach(review => {
-                alert(JSON.stringify(review));
+                // alert(JSON.stringify(review));
                 var deleteReview = '';
                 var deleteId = review['ReviewId'] + '_delete'
                 if (review['IsMyReview'] == true) {
@@ -81,10 +81,10 @@ var AppId;
                 }
                 var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
                 var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
-                var reviewRatingItem = '<p>' + highlightedStars + unhighlightedStars + '</p>';
+                var reviewRatingItem =  highlightedStars + unhighlightedStars;
 
                 var reviewTextItem = '<p>' + ReviewText + '</p>';
-                var reviewItem = '<div class=\"review-item\">' + deleteReview + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
+                var reviewItem = '<div class=\"review-item\"> <div class=\"review-bubble\"><div>' + reviewRatingItem + reviewTextItem + deleteReview + '</div></div><div>' + reviewerUsernameItem + '</div></div>';
                 reviewsList.append(reviewItem);
                 if (review['IsMyReview'] == true) {
                     $('#' + deleteId).click(createOnDeleteReviewClick(review['ReviewId']));

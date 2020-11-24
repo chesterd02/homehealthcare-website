@@ -171,15 +171,3 @@ li a {
 li a:hover {
     background-color: #111;
 }
-
-.review-item {
-    background-color: #edc085;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-}
-
-.reviews-list {
-    margin: auto;
-    width: 500px;
-}

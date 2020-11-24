@@ -67,7 +67,7 @@ var AppId;
             data: JSON.stringify(body),
             contentType: 'application/json',
             success: function() {
-                alert('Review Saved!')
+                alert('Review Added!')
                 window.location.href = 'matches.html'
             },
             error: function error(jqXHR, textStatus, errorThrown) {
@@ -93,6 +93,7 @@ var AppId;
                 contentType: 'application/json',
                 success: function() {
                     alert('Review Saved!')
+                    window.location.href = 'matches.html'
                 },
                 error: function error(jqXHR, textStatus, errorThrown) {
                     console.error(errorThrown);
