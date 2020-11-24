@@ -177,9 +177,8 @@ var AppId;
         };
     }
 
-    function createOnNameClick(userId, isProvider) {
+    function createOnNameClick(profileId, isProvider) {
         return function () {
-            localStorage.setItem('ClickedId', userId);
             var page;
             if (isProvider) {
                 page = 'provider';
@@ -187,7 +186,7 @@ var AppId;
             else {
                 page = 'recipient';
             }
-            window.location.href = 'profile_' + page + '.html';
+            window.location.href = 'profile_' + page + '.html?ProfileId=' + profileId;
         };
     }
 

@@ -20,12 +20,11 @@ var providerId;
     $(function onDocReady() {
         requestUserInfo();
         $('#edit_button').click(handleEditClick);
-        let clickedId = localStorage.getItem("ClickedId");
-        alert("this clickedId: " + clickedId);
-        if (clickedId !== "null") {
-            getClickedIdInfo(clickedId);
+        const urlParams = new URLSearchParams(window.location.search);
+        var profileId = urlParams.get('ProfileId');
+        if (profileId != null) {
+            getClickedIdInfo(profileId);
         }
-        localStorage.setItem("ClickedId", null);
     });
 
     function getClickedIdInfo(clickedId) {

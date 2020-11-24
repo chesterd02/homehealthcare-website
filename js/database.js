@@ -4,8 +4,7 @@ var App = window.App || {};
 var AppId;
 
 
-function clickUser(userId, isProvider) {
-    localStorage.setItem('UserId', userId);
+function clickUser(profileId, isProvider) {
     var page;
     if (isProvider) {
         page = 'provider';
@@ -13,7 +12,7 @@ function clickUser(userId, isProvider) {
     else {
         page = 'recipient';
     }
-    window.location.href = 'profile_' + page + '.html';
+    window.location.href = 'profile_' + page + '.html?ProfileId=' + profileId;
 }
 
 (function AppScopeWrapper($) {
@@ -97,14 +96,8 @@ function clickUser(userId, isProvider) {
         });
     }
 
-    function createOnNameClick(clickedId, isProvider) {
+    function createOnNameClick(profileId, isProvider) {
         return function () {
-            //I find changeing the UserId to the person who is clicked to be confusing
-            // Seems like the userId should be static and should always be the id of the person
-            // who is logged in
-            // I have changed this to be the "ClickedId"
-            // localStorage.setItem('UserId', userId);
-            localStorage.setItem('ClickedId', clickedId);
             var page;
             if (isProvider) {
                 page = 'provider';
@@ -112,7 +105,7 @@ function clickUser(userId, isProvider) {
             else {
                 page = 'recipient';
             }
-            window.location.href = 'profile_' + page + '.html';
+            window.location.href = 'profile_' + page + '.html?ProfileId=' + profileId;
         };
     }
 
