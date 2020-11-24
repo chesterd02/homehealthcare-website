@@ -107,7 +107,7 @@ var AppId;
             var removeAnchorId = match.MatchId + '_remove';
             var removeCell = '<td><a id=\"' + removeAnchorId + '\" href=\"#\">Remove</a></td>';
             var reviewObject = getReviewObject(id, matchId);
-            table.append('<tr>' + nameCell + removeCell + reviewObject.ReviewCell + '</tr>');
+            table.append('<tr>' + nameCell + reviewObject.ReviewCell + removeCell + '</tr>');
 
             $('#' + nameAnchorId).click(createOnNameClick(id, isMatchProvider));
             $('#' + removeAnchorId).click(createOnRemoveClick(matchId));

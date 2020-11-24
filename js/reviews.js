@@ -66,7 +66,6 @@ var AppId;
         }
         else {
             Result['Reviews'].forEach(review => {
-                // alert(JSON.stringify(review));
                 var deleteReview = '';
                 var deleteId = review['ReviewId'] + '_delete'
                 var changeReview = '';

@@ -22,7 +22,7 @@ function clickUser(userId, isProvider) {
         if (token) {
             authToken = token;
         } else {
-             window.location.href = 'signin.html';
+            window.location.href = 'signin.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
@@ -46,7 +46,7 @@ function clickUser(userId, isProvider) {
     }
 
     function requestDatabaseInfo() {
-        var body = { };
+        var body = {};
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/search-info',
@@ -68,7 +68,7 @@ function clickUser(userId, isProvider) {
         var isListedUserProvider = !isProvider;
         table = $('#database-table');
 
-        users.forEach(user => {                
+        users.forEach(user => {
             var id;
             var providerId;
             var recipientId;
@@ -85,7 +85,10 @@ function clickUser(userId, isProvider) {
             var nameAnchorId = id + '_name';
             var nameCell = '<td><a id=\"' + nameAnchorId + '\" href=\"#\">' + user.UserName + '</a></td>';
             var addAnchorId = id + '_add';
-            var addCell = '<td><a id=\"' + addAnchorId + '\" href=\"#\">Add</a></td>';
+            var addCell = '<td></td>';
+            if (!user.IsMatch) {
+                addCell = '<td><a id=\"' + addAnchorId + '\" href=\"#\">Add</a></td>';
+            }
             table.append('<tr>' + nameCell + addCell + '</tr>');
 
             $('#' + nameAnchorId).click(createOnNameClick(id, isListedUserProvider));
@@ -95,13 +98,13 @@ function clickUser(userId, isProvider) {
     }
 
     function createOnNameClick(clickedId, isProvider) {
-        return function() {
+        return function () {
             //I find changeing the UserId to the person who is clicked to be confusing
             // Seems like the userId should be static and should always be the id of the person
             // who is logged in
             // I have changed this to be the "ClickedId"
             // localStorage.setItem('UserId', userId);
-            localStorage.setItem ('ClickedId', clickedId);
+            localStorage.setItem('ClickedId', clickedId);
             var page;
             if (isProvider) {
                 page = 'provider';
@@ -114,12 +117,12 @@ function clickUser(userId, isProvider) {
     }
 
     function createOnAddClick(providerId, recipientId) {
-        return function() {
+        return function () {
             // alert("ProviderId: " + providerId + " recipientId: " + recipientId);
-            body = { 
+            body = {
                 MatchProviderId: providerId,
                 MatchRecipientId: recipientId
-             };
+            };
             jQuery.ajax({
                 method: 'POST',
                 url: _config.api.invokeUrl + '/create-match',
