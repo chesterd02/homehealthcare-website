@@ -35,15 +35,15 @@ var AppId;
     }
 
     function initHandlers() {
-        $(':radio').change(function() {
+        $(':radio').change(function () {
             StarRating = this.value;
         });
 
-        $('#review_text').on('change keyup paste', function() {
+        $('#review_text').on('change keyup paste', function () {
             ReviewText = $(this).val();
         });
 
-        $('#save-button').on('click', function() {
+        $('#save-button').on('click', function () {
             if (ReviewId != null) {
                 saveReview();
             } else {
@@ -66,9 +66,9 @@ var AppId;
             },
             data: JSON.stringify(body),
             contentType: 'application/json',
-            success: function() {
+            success: function () {
                 alert('Review Added!')
-                window.location.href = 'matches.html'
+                window.history.back();
             },
             error: function error(jqXHR, textStatus, errorThrown) {
                 console.error(errorThrown);
@@ -91,9 +91,9 @@ var AppId;
                 },
                 data: JSON.stringify(body),
                 contentType: 'application/json',
-                success: function() {
+                success: function () {
                     alert('Review Saved!')
-                    window.location.href = 'matches.html'
+                    window.history.back();
                 },
                 error: function error(jqXHR, textStatus, errorThrown) {
                     console.error(errorThrown);
@@ -115,25 +115,29 @@ var AppId;
     }
 
     function requestUserInfo() {
-        alert("This needs to call chester's lambda to get a username from their ID");
-        var body = {
-            UserId: RevieweeId
-        };
-        // $.ajax({
-        //     method: 'POST',
-        //     url: _config.api.invokeUrl + '/get-info',
-        //     headers: {
-        //         Authorization: authToken,
-        //     },
-        //     data: JSON.stringify(body),
-        //     contentType: 'application/json',
-        //     success: function(result) {
-        //         $('#review-username').append(username);
-        //     },
-        //     error: function error(jqXHR, textStatus, errorThrown) {
-        //         console.error(errorThrown);
-        //     }
-        // });
+        if (RevieweeId != null) {
+            $.ajax({
+                method: 'POST',
+                url: _config.api.invokeUrl + '/getclickedinfo',
+                headers: {
+                    Authorization: authToken
+                },
+                data: JSON.stringify({
+                    ClickedId: RevieweeId,
+                }),
+                contentType: 'application/json',
+                success: function (result) {
+                    var username = result.Items[0].UserName;
+                    $('#review-username').append('Review for: ' + username);
+                },
+                error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                    console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
+                    console.error('Response: ', jqXHR.responseText);
+                    alert('An error occurred while retrieving that persons info.' + JSON.stringify(jqXHR));
+                    // alert('An error occurred when requesting your user Info:\n' + JSON.stringify(jqXHR));
+                }
+            });
+        }
     }
 
     function requestReviewInfo() {
@@ -168,6 +172,8 @@ var AppId;
 
             var starRatingWidget = $('#stars' + StarRating)
             starRatingWidget.prop('checked', true);
+            RevieweeId = review['RevieweeId'];                
+            requestUserInfo();
         }
     }
 
