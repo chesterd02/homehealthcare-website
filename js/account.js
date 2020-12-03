@@ -10,11 +10,11 @@ var providerId;
             //alert("Token: " + token);
             authToken = token;
         } else {
-            window.location.href = 'signin.html';
+            window.location.href = 'index.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
-        window.location.href = 'signin.html';
+        window.location.href = 'index.html';
     });
 
     $(function onDocReady() {
@@ -114,7 +114,6 @@ var providerId;
     }
 
     function handleEditClick() {
-        //alert("Edit clicked");
         var newName = document.getElementById("edit_name").value;
         var newAge = document.getElementById("edit_age").value;
         var newAvailability = document.getElementById("edit_availability").value;
