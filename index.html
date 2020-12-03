@@ -1,78 +1,56 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
-        <link rel="stylesheet" href="css/message.css">
-    </head>
+<link rel="stylesheet" href="styles.css" />
 
-    <body style="background-color: antiquewhite; font-family: georgia;">
-        <div class="title">
-            <h1 style="font-family:georgia; margin-top: 2%; padding-bottom: 10px;">
-                Welcome to our Health Care Site    
-            </h1>
-            
-        </div>
-        <div class="description">
-            Where you can keep track of your health care needs.
-        </div>
+<body>
+    <div class="title">
+        <h1 style="font-family:georgia; margin-top: 2%; padding-bottom: 10px;">
+            Welcome to our Health Care Site
+        </h1>
+
+    </div>
+    <div class="description">
+        Where you can keep track of your health care needs.
+    </div>
 
 
-        <form id="signinForm">
-            <div class="login">
-                <img src="health_care.png" style="float:left;width:400px;height:400px;margin-left: 9%;">
-                <div class="heading">
-                    Login
-                </div>
-                <p class="space"> </p>
-                <div>
-                    <label for="emailInputSignin">Email</label>
-                    <input
-                            type="text"
-                            id="emailInputSignin"
-                            placeholder="example@email.com"
-                    />
-
-                </div>
-                <p class="space"> </p>
-                <div>
-                    <label for="passwordInputSignin">Password</label>
-                        <input
-                                type="password"
-                                id="passwordInputSignin"
-                                placeholder="Password"
-                        />
-                </div>
-                <p class="space"> </p>
-                <div>
-                    <button class="button button1" id="signinButton" style="font-family: georgia;
-                    font-size: 30px;" >Signin</button>
-                </div>
-            </div>
-        </form>
-        <p style="padding: 2px 0px;"> </p>
-        <div class="b">
-<!--            <input class="button button1" type="submit" value="Sign in" />-->
-<!--            <button class="button button1",-->
-<!--                    onclick="window.location.href='profile.html';" -->
-<!--                    style="font-family: georgia;-->
-<!--                    font-weight: bold;-->
-<!--                    font-size: larger;">-->
-<!--                    Login-->
-<!--            </button>-->
-            <p class="space"> </p>
-            <div class="separator">
-                <p style="font-weight: bold; font-size: larger;">Or</p>
+    <form id="signinForm">
+        <div class="login">
+            <img src="health_care.png" style="float:left;width:400px;height:400px;margin-left: 9%;">
+            <div class="heading">
+                Login
             </div>
             <p class="space"> </p>
-            <button class="button button2" onclick="window.location.href='register.html';" style="font-family: georgia;
-            font-size: 30px;">Create account</button>
+            <div>
+                <label for="emailInputSignin">Email</label>
+                <input type="text" id="emailInputSignin" placeholder="example@email.com" />
+
+            </div>
+            <p class="space"> </p>
+            <div>
+                <label for="passwordInputSignin">Password</label>
+                <input type="password" id="passwordInputSignin" placeholder="Password" />
+            </div>
+            <p class="space"> </p>
+            <div>
+                <button class="button button1" id="signinButton">Signin</button>
+            </div>
         </div>
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-    </body>
+    </form>
+    <p style="padding: 2px 0px;"> </p>
+    <div class="b">
+        <p class="space"> </p>
+        <div class="separator">
+            <p style="font-weight: bold; font-size: larger;">Or</p>
+        </div>
+        <p class="space"> </p>
+        <button class="button button2" onclick="window.location.href='register.html';">Create account</button>
+    </div>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+</body>
+
 </html>
