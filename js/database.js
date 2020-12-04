@@ -59,7 +59,6 @@ function clickUser(profileId, isProvider) {
             }
         })
     }
-
     function updateTable(result) {
         var users = result['Users'];
         var isProvider = App.session['custom:provider'] == "true";
@@ -133,6 +132,6 @@ function clickUser(profileId, isProvider) {
             })
         };
     }
-
+    
 
 }(jQuery));
