@@ -20,13 +20,44 @@ var providerId;
     $(function onDocReady() {
         requestUserInfo();
         $('#edit_button').click(handleEditClick);
+        $('#changeProfilePicture').click(handleChangeProfilePic);
+        getUserImage();
         let clickedId = localStorage.getItem("ClickedId");
-        alert ("this clickedId: " + clickedId);
+        //alert ("this clickedId: " + clickedId);
         if (clickedId !== "null"){
             getClickedIdInfo(clickedId);
         }
         localStorage.setItem("ClickedId", null);
     });
+
+    function getUserImage(){
+        //alert("getUserImage called")
+        $.ajax({
+            method: 'GET',
+            url: _config.api.invokeUrl + '/image',
+            headers: {
+                Authorization: authToken
+            },
+            contentType: 'application/json',
+            success: postImage,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when changing your profile picture:\n' + JSON.stringify(jqXHR));
+            }
+        });
+    }
+
+    function postImage(result){
+        //alert ("here is the result: " + JSON.stringify(result));
+        let buffer=Uint8Array.from(atob(result), c => c.charCodeAt(0));
+        //alert ("buffer worked");
+        let blob=new Blob([buffer], { type: "image/gif" });
+        //alert ("blob worked: " + blob);
+        let url=URL.createObjectURL(blob);
+        //alert ("url worked: " + url);
+        document.getElementById('changeProfilePicture').src = url;
+    }
 
     function getClickedIdInfo (clickedId){
         $.ajax({
@@ -50,9 +81,9 @@ var providerId;
     }
 
     function completeClickedInfo(result){
-        alert ("result: " + JSON.stringify(result));
+        //alert ("result: " + JSON.stringify(result));
         var username     = result.Items[0].UserName;
-        alert ("Username: "+ username);
+        //alert ("Username: "+ username);
         var email        = result.Items[0].Email;
         var availability = result.Items[0].Availablility;
         var age          = result.Items[0].Age;
@@ -211,6 +242,46 @@ var providerId;
         if (location){
             document.getElementById("profileLocation").innerHTML = "Location: " + location;
         }
+    }
+
+
+    function handleChangeProfilePic(event){
+        event.preventDefault();
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = e => {
+            var file = e.target.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(file)
+            reader.onload = readerEvent =>{
+                var content = readerEvent.target.result;
+                document.getElementById('changeProfilePicture').src = content;
+                uploadImageToS3(content);
+            }
+        }
+        input.click();
+    }
+
+    function uploadImageToS3(image){
+        //alert("this is the image: " + image);
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/image',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                image:image
+            }),
+            contentType: 'application/json',
+            // success: completeRequest,
+            success: alert('Your image has been saved'),
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when changing your profile picture:\n' + JSON.stringify(jqXHR));
+            }
+        });
     }
 
     //*****
