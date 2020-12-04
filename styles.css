@@ -1,19 +1,7 @@
-div.login {
-    font-size: 30px;
-    text-align: right;
-    margin-top: 5%;
-    margin-right: 9%;
-    line-height: 0.5;
-}
-
-div.heading {
-    text-align: right;
-    margin-right: 8.5%;
-}
-
+/* Make text boxes look nicer */
 input, textarea {
     display: block;
-    padding: 5px;
+    padding: 12px;
     margin:10px 0px;
     font-size: medium;
     border-radius: 5px;
@@ -97,18 +85,19 @@ div.signintitle {
 
 /* No link underlining. Looks super oldschool */
 a {
+    color: #3498db;
     text-decoration: none;
 }
 
 /* We want a consistent look to all the buttons in our app, so common styling is here */
 button {
     border-radius: 5px;
-    background-color: #333;
+    background-color: #3498db;
     color: white;
     font-size: large;
     font-family: georgia;
     min-width: 200px;
-    padding: 14px;
+    padding: 15px;
     margin: 10px 0px;
     border: none;
 }

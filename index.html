@@ -3,29 +3,34 @@
 <link rel="stylesheet" href="index.css" />
 
 <body>
-    <header>
-        <h1>
-            Welcome to our Health Care Site
-        </h1>
-        <p>
-            Where you can keep track of your health care needs.
-        </p>
-    </header>
+    <div class="flex-container">
 
-    <div class="flex-container content">
-        <div class="login-image">
-                <span class="align-helper"></span>
-                <img src="logo.png">
+        <div class="flex-hero">
+
+
+            <img class="hero-image" src="elderly_background.jpg">
         </div>
 
-        <form id="signinForm" class="login-card">
-            <h2>Login</h2>
-            <input type="text" id="emailInputSignin" placeholder="Enter your email" />
-            <input type="password" id="passwordInputSignin" placeholder="Enter your password" />
-            <button id="signinButton">Sign In</button>
-            <b>Or</b>
-            <button type="button" onclick="window.location.href='register.html';">Create Account</button>
-        </form>
+        <div class="login-panel">
+            <header>
+                <h1>
+                    Home Healthcare
+                </h1>
+                <p>
+                    Connecting healthcare providers to families in need
+                </p>
+            </header>
+
+            <form id="signinForm">
+                <h2>Login</h2>
+                <input type="text" id="emailInputSignin" placeholder="Email" />
+                <input type="password" id="passwordInputSignin" placeholder="Password" />
+                <button id="signinButton">Sign In</button>
+                <b>Or</b>
+                <a href="register.html">Create Account</a>
+                <!-- <button type="button" onclick="window.location.href='register.html';">Create Account</button> -->
+            </form>
+        </div>
     </div>
 
     <script src="js/vendor/jquery-3.1.0.js"></script>
