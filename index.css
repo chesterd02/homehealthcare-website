@@ -1,0 +1,61 @@
+/* Header with a subtitle */
+header {
+    padding-top: 50px;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 60px;
+    margin: 0px;
+}
+
+header p {
+    margin: 0px;
+    font-size: 30px;
+}
+
+/* Place items in flex-container side by side */
+.flex-container {
+    display: flex;
+}
+
+.login-image {
+    flex: 2;
+    margin: 10px;
+}
+.align-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.login-image img {
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+.login-card {
+    margin: 10px;
+    text-align: center;
+    flex: 1;
+    /* background-color: #f7d19e; */
+    background-color: white;
+    padding: 50px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-card h2 {
+    margin: 0px;
+}
+
+input {
+    font-size: large;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+}
