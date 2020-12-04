@@ -7,7 +7,6 @@ var providerId;
     var authToken;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
-            //alert("Token: " + token);
             authToken = token;
         } else {
             window.location.href = 'index.html';

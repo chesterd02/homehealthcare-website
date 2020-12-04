@@ -28,41 +28,46 @@ var App = window.App || {};
         userPool.getCurrentUser().signOut();
     };
 
-    App.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-        var cognitoUser = userPool.getCurrentUser();
-        if (cognitoUser) {
-            cognitoUser.getSession(function sessionCallback(err, session) {
-                if (err) {
-                    reject(err);
-                } else if (!session.isValid()) {
-                    resolve(null);
-                } else {
-                    resolve(session.getIdToken().getJwtToken());
-                }
-            });
-        } else {
-            resolve(null);
-        }
-    });
+    function fetchCurrentAuthToken() {
+        return new Promise((resolve, reject) => {
+            var cognitoUser = userPool.getCurrentUser();
+            if (cognitoUser) {
+                cognitoUser.getSession(function sessionCallback(err, session) {
+                    if (err) {
+                        reject(err);
+                    } else if (!session.isValid()) {
+                        resolve(null);
+                    } else {
+                        resolve(session.getIdToken().getJwtToken());
+                    }
+                });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
+    function parseAuthToken() {
+        return App.authToken
+            .then(token => parseJwt(token))
+            .catch(() => null);
+    }
+
+    App.authToken = fetchCurrentAuthToken();
+    App.session = parseAuthToken();
+
 
     // https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library/38552302#38552302
-    function parseJwt (token) {
+    function parseJwt(token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
 
         return JSON.parse(jsonPayload);
     };
 
-    App.authToken
-        .then(function setSession(jwtToken) {
-            App.session = parseJwt(jwtToken);
-        })
-        .catch(function handleError() {
-            App.session = null;
-        });
 
     /*
      * Cognito User Pool functions
@@ -130,14 +135,19 @@ var App = window.App || {};
         var password = $('#passwordInputSignin').val();
         signin(email, password,
             function signinSuccess() {
-                if (App.session['custom:provider'] === "true"){
-                    window.location.href = 'profile_provider.html';
-                }else{
-                    window.location.href = 'profile_recipient.html';
-                }
+                App.authToken = fetchCurrentAuthToken();
+                App.session = parseAuthToken();
+                App.session
+                    .then(s => {                            
+                        if (s['custom:provider'] === "true"){
+                            window.location.href = 'profile_provider.html';
+                        }else{
+                            window.location.href = 'profile_recipient.html';
+                        }
+                    });
             },
             function signinError(err) {
-                alert('there was an error logging in: '+err);
+                alert('there was an error logging in: ' + err);
             }
         );
     }
@@ -149,17 +159,17 @@ var App = window.App || {};
         var password2 = $('#password2InputRegister').val();
         var username = $('#usernameInputRegister').val();
         var provider = "false"
-        if (document.getElementById("providerCheck").checked === true){
+        if (document.getElementById("providerCheck").checked === true) {
             provider = "true"
             alert("provider selected");
         }
 
         var onSuccess = function registerSuccess(result) {
-            alert ('Registration successful. Please check your email inbox or spam folder for your verification code.')
+            alert('Registration successful. Please check your email inbox or spam folder for your verification code.')
             window.location.href = 'index.html';
         };
         var onFailure = function registerFailure(err) {
-            alert('error: '+ err);
+            alert('error: ' + err);
         };
         if (password === password2) {
             register(email, password, username, provider, onSuccess, onFailure);
