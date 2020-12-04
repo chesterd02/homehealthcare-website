@@ -11,7 +11,8 @@ input, textarea {
 
 /* Page header shouldn't separate from navbar */
 h1 {
-    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 /* Every page needs this styling */
@@ -152,6 +153,10 @@ ul.navbar>li>a {
 
 ul.navbar>li>a:hover {
     background-color: #111;
+}
+
+ul.navbar>li.right {
+    float: right;
 }
 
 /* Makes the cool spinner on pages which need to load */
