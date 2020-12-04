@@ -9,11 +9,16 @@ input, textarea {
     border-style: solid;
 }
 
+/* Page header shouldn't separate from navbar */
+h1 {
+    margin: 0px;
+}
+
 /* Every page needs this styling */
 body {
     height: 100%;
     margin: 0px;
-    background-color: antiquewhite;
+    background-color: #3498db;
     /* background-color: #EEE; */
     font-family: georgia;
 }
@@ -27,16 +32,11 @@ body {
 div.content {
     text-align: left;
     margin: auto;
-    width: 1000px;
-}
-
-div.form {
-    text-align: left;
-}
-
-div.signintitle {
-    font-size: 16px;
-    text-align: center;
+    width: 900px;
+    background-color: white;
+    min-height: 100%;
+    padding: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #fname {
@@ -102,16 +102,17 @@ button {
     border: none;
 }
 button:hover {
-    background-color: #111;
+    background-color: #1b76b3;
 }
 
 /* Style all tables in our app with alternating colors and a dark header */
 table {
     width: 100%;
+    border-spacing: 0px;
 }
 
 tr:nth-child(odd) {
-  background-color: #f7d19e;
+  background-color: #DDD;
 }
 
 th {
@@ -133,6 +134,7 @@ ul.navbar {
     overflow: hidden;
     background-color: #333;
     list-style-type: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 ul.navbar>li {
@@ -156,7 +158,7 @@ ul.navbar>li>a:hover {
 .spinner {
   margin: auto;
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border-top: 16px solid #555;
   border-radius: 50%;
   width: 60px;
   height: 60px;

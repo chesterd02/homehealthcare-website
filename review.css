@@ -1,6 +1,6 @@
 .review-bubble {
     position: relative;
-	background: #f7d19e;
+	background: #DDD;
 	border-radius: 5px;
     padding: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -14,7 +14,7 @@
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
-	border-top-color: #f7d19e;
+	border-top-color: #DDD;
 	border-bottom: 0;
 	border-right: 0;
 	margin-left: -10px;
