@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Get Me Out Of Here</h1>
+
+<div id="googleMap" style="width:50%;height:400px;"></div>
+
+<script>
+var markerss = [ {lat: 51.508742, lng: -0.120850 },
+    { lat: 55.508742, lng: -3.120850 },
+    { lat: 57.508742, lng: 3.120850 },
+    ]
+function myMap() {
+
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var markers = [];
+for (i = 0; i < markerss.length; i++) {
+    marker = new google.maps.Marker({
+          position: markerss[i],
+          map: map,
+        });
+    markers.push(marker)
+}
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7h172MB4EuiGSE3IQ-oLV-C1UOWBfBb8&callback=myMap"></script>
+<script src=https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyC7h172MB4EuiGSE3IQ-oLV-C1UOWBfBb8></script>
+
+</body>
+</html>
