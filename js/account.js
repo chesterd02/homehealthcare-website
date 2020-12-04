@@ -23,7 +23,7 @@ var providerId;
     });
 
     function handleEditClick(){
-        alert("Edit clicked");
+        //alert("Edit clicked");
         var newName = document.getElementById("edit_name").value;
         var newAge = document.getElementById("edit_age").value;
         var newAvailability = document.getElementById("edit_availability").value;
@@ -99,7 +99,7 @@ var providerId;
     }
 
     function completeUserInfoRequest(result){
-        alert (JSON.stringify(result));
+        //alert (JSON.stringify(result));
         //alert ("username: " + result.Items[0].UserName);
         providerId       = result.Items[0].ProviderId;
         var username     = result.Items[0].UserName;
@@ -154,7 +154,7 @@ var providerId;
         }
     }
     function updateAlias(newAlias){
-        alert('new alias will be: '+ newAlias);
+        //alert('new alias will be: '+ newAlias);
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/changealias',
@@ -176,8 +176,8 @@ var providerId;
     }
 
     function completeRequest(result){
-        alert(JSON.stringify(result));
-        alert(JSON.stringify(result.matches))
+        //alert(JSON.stringify(result));
+        //alert(JSON.stringify(result.matches))
         displayUpdate("this is an update")
     }
 
