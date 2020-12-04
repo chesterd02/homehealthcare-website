@@ -1,7 +1,7 @@
 /* Header with a subtitle */
 header {
-    padding-top: 50px;
-    padding-bottom: 100px;
+    padding-top: 30px;
+    padding-bottom: 60px;
     text-align: center;
 }
 
@@ -35,6 +35,7 @@ header p {
 
 .login-panel {
     width: 350px;
+    font-size: large;
     text-align: center;
     background-color: white;
     padding: 0px 50px;
@@ -53,4 +54,15 @@ button {
 .login-panel a {
     display: block;
     margin: 10px;
+}
+
+.input-radio input {
+    display: inline;
+    width: auto;
+    margin: 5px;
+    margin-top: 15px;
+}
+
+.input-radio {
+    margin: 20px;
 }

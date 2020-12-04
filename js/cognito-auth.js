@@ -149,7 +149,7 @@ var App = window.App || {};
         var password2 = $('#password2InputRegister').val();
         var username = $('#usernameInputRegister').val();
         var provider = "false"
-        if (document.getElementById("caretakerCheck").checked === true){
+        if (document.getElementById("providerCheck").checked === true){
             provider = "true"
             alert("provider selected");
         }

@@ -1,40 +1,61 @@
 <html>
-    <link rel="stylesheet" href="styles.css" />
-    <body>
-        <div class="signintitle">
-            <h1>
-                Please fill in the following fields.   
-            </h1>
-        </div>
-            <div class="signfirstname">
-                <label for="emailInputRegister">Email:</label>
-                <input type="text" id="emailInputRegister" name="emailInputRegister">
-            </div>
-        <p>Check one of the following boxes</p>
-            <label for="checkAccountType"  style="word-wrap:break-word">
-               <input id="caretakerCheck"  type="checkbox" value="test" />Caretaker
-               <input id="recipientCheck"  type="checkbox" value="test2" />Recipient
-            </label>
-        <div class="signuser">
-            <label for="username">Username:</label>
-            <input type="text" id="usernameInputRegister" name="username">
-        </div>
-        <div class="signpass">
-            <label for="passwordInputRegister">Password: </label>
-            <input type="text" id="passwordInputRegister" name="spass">
-        </div>
-        <div class="confirmPass">
-            <label for="password2InputRegister">Confirm Password: </label>
-            <input type="text" id="password2InputRegister" name="cpass">
-        </div>
-        <button class="button button3" id="registrationButton">Create Account</button>
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="index.css" />
 
 
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-    </body>
+
+<body>
+    <div class="flex-container">
+        <div class="flex-hero">
+            <img class="hero-image" src="elderly_background.jpg">
+        </div>
+
+        <div class="login-panel">
+            <header>
+                <h1>
+                    Home Healthcare
+                </h1>
+                <p>
+                    Connecting healthcare providers to families in need
+                </p>
+            </header>
+
+            <form id="signinForm">
+                <h2>Register</h2>
+                <div>
+                    Account Type:
+                </div>
+                <label class="input-radio" for="providerCheck">
+                    <input id="providerCheck" checked="checked" type="radio" name="accountType" />
+                    Provider
+                </label>
+                <label class="input-radio" for="recipientCheck">
+                    <input id="recipientCheck" type="radio" name="accountType" />
+                    Recipient
+                </label>
+                <input type="text" id="emailInputRegister" name="emailInputRegister" placeholder="Email">
+                <input type="text" id="usernameInputRegister" name="username" placeholder="Username">
+                <input type="password" id="passwordInputRegister" name="spass" placeholder="Password">
+                <input type="password" id="password2InputRegister" name="cpass" placeholder="Confirm Password">
+                <button id="registrationButton">Create Account</button>
+                <b>Or</b>
+                <a href="index.html">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+</body>
+
 </html>
