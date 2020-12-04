@@ -1,47 +1,54 @@
 <html>
-    <link rel="stylesheet" href="styles.css" />
-    <ul>
+<link rel="stylesheet" href="styles.css" />
+
+<body style="background-color: antiquewhite;">
+    <ul class="navbar">
         <!-- need to change profile link based on provider or recipient -->
-        <li><a href="profile_recipient.html">Profile</a></li> 
+        <li><a href="profile_recipient.html">Profile</a></li>
         <li><a href="database_everyone.html">Database</a></li>
-        <li><a href="matches.html">Matches List</a></li>
+        <li><a href="matches.html">My Matches</a></li>
+        <li><a href="reviews.html">My Reviews</a></li>
     </ul>
-    <div class="profileHead">
+    <div class="spinner"></div>
+    <div class="content">
         <h1> Edit Profile Page</h1>
-    </div>
-    <body style="background-color: antiquewhite;">
-       <img src="health_care.png" width="200px" height="200px"/>
-        <p>Name: <label for="edit_name"></label>
-            <input type="text" id="edit_name" name="edit_name"></p>
-        <p>Age: <label for="edit_age"></label>
-            <input type="text" id="edit_age" name="edit_age"></p>
-        <p>Availability: <label for="edit_availability"></label>
-            <input type="text" id="edit_availability" name="edit_availability"></p>
-<!--        <p>Bio: <label for="edit_bio"></label>-->
-<!--            <input type="text" id="edit_bio" name="edit_bio"></p>-->
-        <p>Contact: <label for="edit_contact"></label>
-            <input type="text" id="edit_contact" name="edit_contact"></p>
-        <p>Credentials: <label for="edit_credentials"></label>
-            <input type="text" id="edit_credentials" name="edit_credentials"></p>
-        <p>Location: <label for="edit_location"></label>
-           <input type="text" id="edit_location" name="edit_location"></p>
-        <p>Email: <label for="edit_email"></label>
-            <input type="text" id="edit_email" name="edit_email"></p>
-        <p>Gender: <label for="edit_gender"></label>
-            <input type="text" id="edit_gender" name="edit_gender"></p>
-        <p>Bio: </p>
-        <textarea rows = "5" cols = "60" name = "bio" id="text_area_bio">
+        <div class="form">
+
+            <img src="health_care.png" width="200px" height="200px" />
+            <p>Name: <label for="edit_name"></label>
+                <input type="text" id="edit_name" name="edit_name"></p>
+            <p>Age: <label for="edit_age"></label>
+                <input type="text" id="edit_age" name="edit_age"></p>
+            <p>Availability: <label for="edit_availability"></label>
+                <input type="text" id="edit_availability" name="edit_availability"></p>
+            <!--        <p>Bio: <label for="edit_bio"></label>-->
+            <!--            <input type="text" id="edit_bio" name="edit_bio"></p>-->
+            <p>Contact: <label for="edit_contact"></label>
+                <input type="text" id="edit_contact" name="edit_contact"></p>
+            <p>Credentials: <label for="edit_credentials"></label>
+                <input type="text" id="edit_credentials" name="edit_credentials"></p>
+            <p>Location: <label for="edit_location"></label>
+                <input type="text" id="edit_location" name="edit_location"></p>
+            <p>Email: <label for="edit_email"></label>
+                <input type="text" id="edit_email" name="edit_email"></p>
+            <p>Gender: <label for="edit_gender"></label>
+                <input type="text" id="edit_gender" name="edit_gender"></p>
+            <p>Bio: </p>
+            <textarea rows="5" cols="60" name="bio" id="text_area_bio">
             Tell us about yourself...
         </textarea><br><br>
-        <button class="button edit_button" id="edit_button">Save Changes</button>
+            <button class="button edit_button" id="edit_button">Save Changes</button>
+        </div>
+    </div>
 
-       <script src="js/vendor/jquery-3.1.0.js"></script>
-       <script src="js/vendor/bootstrap.min.js"></script>
-       <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-       <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-       <script src="https://js.arcgis.com/4.3/"></script>
-       <script src="js/config.js"></script>
-       <script src="js/cognito-auth.js"></script>
-       <script src="js/account.js"></script>
-    </body>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="https://js.arcgis.com/4.3/"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/account.js"></script>
+</body>
+
 </html>

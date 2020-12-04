@@ -1,20 +1,22 @@
 <html>
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="star_rating.css" />
+<link rel="stylesheet" href="review.css" />
 
 <body style="background-color: antiquewhite;">
-    <ul>
+    <ul class="navbar">
         <!-- need to change profile link based on provider or recipient -->
         <li><a href="profile_provider.html">Profile</a></li>
         <li><a href="database_everyone.html">Database</a></li>
-        <li><a href="matches.html">Matches List</a></li>
+        <li><a href="matches.html">My Matches</a></li>
+        <li><a href="reviews.html">My Reviews</a></li>
     </ul>
-    <div class="dataHead ">
-        <h1 id="review-title">Reviews</h1>
-    </div>
-
-    <div id="reviews-list" class="reviews-list">
-
+    <div class="spinner"></div>
+    <div class="content">
+        <h1 id="reviews-received-title">Reviews Received</h1>
+        <div id="reviews-received-list" class="reviews-list"></div>
+        <h1 id="reviews-written-title">Reviews Written</h1>
+        <div id="reviews-written-list" class="reviews-list"> </div>
     </div>
 
     <script src="js/vendor/jquery-3.1.0.js"></script>

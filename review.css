@@ -1,0 +1,47 @@
+.review-bubble {
+    position: relative;
+	background: #edc085;
+	border-radius: .4em;
+    padding: 10px;
+}
+
+.review-bubble:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 5%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #edc085;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
+}
+
+.review-bubble>h2 {
+    margin: 0px;
+}
+
+.review-bubble~div {
+    float: left;
+    margin-top: 5px;
+    margin-left: 38px;
+    background: #4287f5;
+    border-radius: .4em;
+    padding: 10px;
+}
+.review-bubble~div>p {
+    margin: 0px;
+}
+
+.review-item {
+    margin: 20px;
+    margin-bottom: 75px;
+}
+
+.reviews-list {
+    margin: auto;
+    width: 500px;
+}

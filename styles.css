@@ -1,3 +1,7 @@
+body {
+    margin: 0px;
+}
+
 div.title {
     text-align: center;
     font-size: 40px;
@@ -25,12 +29,15 @@ div.heading {
     margin-right: 8.5%;
 }
 
-div.profileHead {
-    text-align: center;
+div.content {
+    display: none;
+    text-align: left;
+    margin: auto;
+    width: 800px;
 }
 
-div.dataHead {
-    text-align: center;
+div.form {
+    text-align: left;
 }
 
 div.b {
@@ -87,6 +94,7 @@ div.signintitle {
     padding: 14px 60px;
     font-size: large;
     font-family: georgia;
+    width: 250px;
 }
 
 p.space {
@@ -144,18 +152,19 @@ td {
     text-align: center;
 }
 
-ul {
+ul.navbar {
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    list-style-type: none;
 }
 
-li {
+ul.navbar>li {
     float: left;
 }
 
-li a {
+ul.navbar>li>a {
     display: block;
     color: white;
     text-align: center;
@@ -167,18 +176,30 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 
-li a:hover {
+ul.navbar>li>a:hover {
     background-color: #111;
 }
 
-.review-item {
-    background-color: #edc085;
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
+.spinner {
+  margin: auto;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  top: 50%;
+  position: absolute;
+  left: 50%;
 }
 
-.reviews-list {
-    margin: auto;
-    width: 500px;
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

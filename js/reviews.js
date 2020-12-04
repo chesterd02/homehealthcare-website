@@ -4,10 +4,7 @@ var App = window.App || {};
 var AppId;
 
 (function AppScopeWrapper($) {
-    var ReviewId;
     var RevieweeId;
-    var StarRating;
-    var ReviewText;
     var authToken;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
@@ -22,62 +19,123 @@ var AppId;
 
     $(function onDocReady() {
         getPageParams();
-        requestReviewInfo();
+        if (RevieweeId != null || ReviewerId != null) {
+            $("#reviews-written-title").hide();
+            $("#reviews-written-list").hide();
+            requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false, true);
+        }
+        else {
+            var userId = App.session.sub;
+            requestReviewInfo("RevieweeId", userId, "reviews-received-list", false, false);
+            requestReviewInfo("ReviewerId", userId, "reviews-written-list", true, true);
+        }
     });
 
     function getPageParams() {
-        RevieweeId = localStorage.getItem("RevieweeId");
-        ReviewerId = localStorage.getItem("ReviewerId");
-        RevieweeId = "3333";
+        const urlParams = new URLSearchParams(window.location.search);
+        RevieweeId = urlParams.get('RevieweeId');
+        ReviewerId = urlParams.get('ReviewerId');
     }
 
-    function requestReviewInfo() {
-        if (RevieweeId != null) {
-            var body = {
-                RevieweeId: RevieweeId
-            };
-            $.ajax({
+    function requestReviewInfo(GetId, Id, ListId, DisplayRevieweeName, finalCall) {
+        var body = {
+            [GetId]: Id
+        };
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/get-reviews',
+            headers: {
+                Authorization: authToken,
+            },
+            data: JSON.stringify(body),
+            contentType: 'application/json',
+            success: function (Result) {
+                updateReviews(ListId, Result, DisplayRevieweeName, finalCall);
+            },
+            error: function error(jqXHR, textStatus, errorThrown) {
+                console.error(errorThrown);
+            }
+        });
+    }
+
+    function updateReviews(ListId, Result, DisplayRevieweeName, finalCall) {
+        var reviewsList = $('#' + ListId);
+        if (Result['Reviews'].length == 0) {
+            noReviewsItem = '<p>There are no reviews for this user yet.</p>';
+            reviewsList.append(noReviewsItem);
+        }
+        else {
+            Result['Reviews'].forEach(review => {
+                var deleteReview = '';
+                var deleteId = review['ReviewId'] + '_delete'
+                var changeReview = '';
+                var changeId = review['ReviewId'] + '_change'
+                if (review['IsMyReview'] == true) {
+                    deleteReview = '<a style=\"margin-left:20px;\" id=\"' + deleteId + '\" href=\"#\">Delete Review</a>';
+                    changeReview = '<a id=\"' + changeId + '\" href=\"#\">Change Review</a>';
+                }
+
+                var revieweeName = '';
+                if (DisplayRevieweeName == true) {
+                    revieweeName = '<h2>' + review['RevieweeUser']['UserName'] + '</h2>';
+                }
+
+                var ReviewerUsername = review['ReviewerUser']['UserName'];
+                var ReviewText = review['Review'];
+                var StarRating = review['Rating'];
+
+                var reviewerUsernameItem = '<p>' + ReviewerUsername + '</p>';
+
+                var highlightedStarsText = '';
+                var unhighlightedStarsText = '';
+                for (var i = 0; i < 5; i++) {
+                    if (i < StarRating) {
+                        highlightedStarsText += '&starf;';
+                    } else {
+                        unhighlightedStarsText += '&starf;';
+                    }
+                }
+                var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
+                var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
+                var reviewRatingItem = highlightedStars + unhighlightedStars;
+
+                var reviewTextItem = '<p>' + ReviewText + '</p>';
+                var reviewItem = '<div class=\"review-item\"> <div class=\"review-bubble\">' + revieweeName + reviewRatingItem + reviewTextItem + changeReview + deleteReview + '</div><div>' + reviewerUsernameItem + '</div></div>';
+                reviewsList.append(reviewItem);
+                if (review['IsMyReview'] == true) {
+                    $('#' + deleteId).click(createOnDeleteReviewClick(review['ReviewId']));
+                    $('#' + changeId).click(createOnChangeReviewClick(review['ReviewId']));
+                }
+            });
+        }
+        if (finalCall) {
+            $('.spinner').hide();
+            $('.content').show();
+        }
+    }
+
+    function createOnChangeReviewClick(matchReviewId) {
+        return function () {
+            window.location.href = 'create_review.html?ReviewId=' + matchReviewId;
+        };
+    }
+
+    function createOnDeleteReviewClick(reviewId) {
+        return function () {
+            body = { ReviewId: reviewId };
+            jQuery.ajax({
                 method: 'POST',
-                url: _config.api.invokeUrl + '/get-reviews',
+                url: _config.api.invokeUrl + '/delete-review',
                 headers: {
                     Authorization: authToken,
                 },
                 data: JSON.stringify(body),
                 contentType: 'application/json',
-                success: updateReviews,
+                success: function success() { window.location.href = ''; },
                 error: function error(jqXHR, textStatus, errorThrown) {
                     console.error(errorThrown);
                 }
-            });
-        }
-    }
-
-    function updateReviews(result) {
-        var reviewsList = $('#reviews-list');
-        result['Reviews'].forEach(review => {
-            alert(JSON.stringify(review));
-            var ReviewerUsername = review['ReviewerUser']['UserName'];
-            var ReviewText = review['Review'];
-            var StarRating = review['Rating'];
-
-            var reviewerUsernameItem = '<h2>' + ReviewerUsername + '</h2>';
-
-            var highlightedStarsText = '';
-            var unhighlightedStarsText = '';
-            for (var i = 0; i < 5; i++) {
-                if (i < StarRating) {
-                    highlightedStarsText += '&starf;';
-                } else {
-                    unhighlightedStarsText += '&starf;';
-                }
-            }
-            var highlightedStars = '<div class=\"rating-selected rating\">' + highlightedStarsText + '</div>';
-            var unhighlightedStars = '<div class=\"rating\">' + unhighlightedStarsText + '</div>';
-            var reviewRatingItem = '<p>' + highlightedStars + unhighlightedStars + '</p>';
-
-            var reviewTextItem = '<p>' + ReviewText + '</p>';
-            var reviewItem = '<div class=\"review-item\">' + reviewerUsernameItem + reviewRatingItem + reviewTextItem + '</div>';
-            reviewsList.append(reviewItem);
-        });
+            })
+        };
     }
 }(jQuery));
