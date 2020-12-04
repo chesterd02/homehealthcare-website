@@ -1,8 +1,9 @@
 .review-bubble {
     position: relative;
 	background: #f7d19e;
-	border-radius: .4em;
+	border-radius: 5px;
     padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .review-bubble:after {
@@ -26,12 +27,13 @@
 
 .review-bubble~div {
     float: left;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-left: 38px;
     background: #555;
     color: #FFF;
-    border-radius: .4em;
+    border-radius: 5px;
     padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .review-bubble~div>p {
     margin: 0px;
