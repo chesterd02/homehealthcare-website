@@ -26,6 +26,7 @@ var App = window.App || {};
 
     App.signOut = function signOut() {
         userPool.getCurrentUser().signOut();
+        window.location.href = "index.html";
     };
 
     function fetchCurrentAuthToken() {

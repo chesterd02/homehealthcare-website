@@ -2,6 +2,7 @@
 
 var App = window.App || {};
 var providerId;
+var recipientId;
 
 (function AppScopeWrapper($) {
     var authToken;
@@ -143,6 +144,7 @@ var providerId;
             },
             data: JSON.stringify({
                 ProviderId: providerId,
+                RecipientId: recipientId,
                 UserName: name,
                 Age: age,
                 Availability: avail,
@@ -188,9 +190,8 @@ var providerId;
     }
 
     function completeUserInfoRequest(result) {
-        //alert (JSON.stringify(result));
-        //alert ("username: " + result.Items[0].UserName);
         result = result.Items[0];
+        recipientId = result.RecipientId;
         providerId = result.ProviderId;
         var username = result.UserName;
         var email = result.Email;
