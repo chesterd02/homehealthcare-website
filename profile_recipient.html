@@ -1,41 +1,50 @@
 <html>
-    <link rel="stylesheet" href="styles.css" />
-    <ul>
-        <li><a href="profile_recipient.html">Profile</a></li> 
-        <li><a href="database_everyone.html">Database</a></li>
-        <li><a href="matches.html">Matches List</a></li>
-    </ul>
-    <div class="profileHead">
-        <h1>Recipient Profile Page</h1>
-    </div>
-    <body style="background-color: antiquewhite;">
-       <img id="changeProfilePicture" src="health_care.png" width="200px" height="200px"/>
-<!--       <p>Full Name: Amy Mark</p>-->
-<!--       <p>Caretaker: Nathaniel Martin</p>-->
-<!--       <p>Phone number: ***********</p>-->
-<!--        <p>Address: **************</p>-->
-<!--        <p>State:</p>-->
-<!--        <p>Zip Code:</p>-->
-<!--        <p>Email: *************</p>-->
-<!--        <p>List of Needs: </p>-->
-        <p id="profileName">Name: </p>
-        <p id="profileAge">Age: </p>
-        <p id="profileAvailability">Availability: </p>
-        <p id="profileBio">Bio:</p>
-        <p id="profileContact">Contact: ***********</p>
-        <p id="profileCredentials">Credentials: </p>
-        <p id="profileLocation">Location: </p>
-        <p id="profileEmail">Email: *************</p>
-        <p id="profileGender">Gender: </p>
-        <button id="editButton" class="button edit_profile" onclick="window.location.href='edit_recipient.html';">Edit Profile</button>
+<link rel="stylesheet" href="styles.css" />
 
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="https://js.arcgis.com/4.3/"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-        <script src="js/account.js"></script>
-    </body>
+<body>
+    <ul class="navbar">
+        <li><a href="profile_recipient.html">Profile</a></li>
+        <li><a href="database_everyone.html">Database</a></li>
+        <li><a href="matches.html">My Matches</a></li>
+        <li><a href="reviews.html">My Reviews</a></li>
+        <li class="right"><a href="javascript:App.signOut()" >Log Out</a></li>
+    </ul>
+    <div class="spinner"></div>
+    <div class="content">
+        <h1>Recipient Profile Page</h1>
+        <div class="form">
+
+            <img id="changeProfilePicture" src="health_care.png" width="200px" height="200px" />
+            <!--       <p>Full Name: Amy Mark</p>-->
+            <!--       <p>Caretaker: Nathaniel Martin</p>-->
+            <!--       <p>Phone number: ***********</p>-->
+            <!--        <p>Address: **************</p>-->
+            <!--        <p>State:</p>-->
+            <!--        <p>Zip Code:</p>-->
+            <!--        <p>Email: *************</p>-->
+            <!--        <p>List of Needs: </p>-->
+            <p id="profileName">Name: </p>
+            <p id="profileAge">Age: </p>
+            <p id="profileAvailability">Availability: </p>
+            <p id="profileBio">Bio:</p>
+            <p id="profileContact">Contact: ***********</p>
+            <p id="profileCredentials">Credentials: </p>
+            <p id="profileLocation">Location: </p>
+            <p id="profileEmail">Email: *************</p>
+            <p id="profileGender">Gender: </p>
+            <button id="editButton" onclick="window.location.href='edit_recipient.html';">Edit Profile</button>
+            <button id="viewReviews">View Reviews</button>
+
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="https://js.arcgis.com/4.3/"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/account.js"></script>
+</body>
+
 </html>

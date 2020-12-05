@@ -1,104 +1,43 @@
-body {
-    margin: 0px;
-}
-
-div.title {
-    text-align: center;
-    font-size: 40px;
-    line-height: 0.5;
-}
-
-div.description {
-    text-align: center;
-    margin-top: 0%;
-    font-size: 40px;
-    line-height: 0;
+/* Make text boxes look nicer */
+input, textarea {
     display: block;
+    padding: 12px;
+    margin:10px 0px;
+    font-size: medium;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
 }
 
-div.login {
-    font-size: 30px;
-    text-align: right;
-    margin-top: 5%;
-    margin-right: 9%;
-    line-height: 0.5;
+/* Page header shouldn't separate from navbar */
+h1 {
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
-div.heading {
-    text-align: right;
-    margin-right: 8.5%;
+/* Every page needs this styling */
+body {
+    height: 100%;
+    margin: 0px;
+    background-color: #3498db;
+    /* background-color: #EEE; */
+    font-family: georgia;
 }
 
-div.content {
+/* Only content that has a spinner before it should start blank so that it can "load" */
+.spinner + .content {
     display: none;
+}
+
+/* All content should be centered */
+div.content {
     text-align: left;
     margin: auto;
-    width: 800px;
-}
-
-div.form {
-    text-align: left;
-}
-
-div.b {
-    text-align: right;
-}
-
-div.separator {
-    font-size: 16px;
-    text-align: right;
-    margin-right: 18.5%;
-}
-
-div.signintitle {
-    font-size: 16px;
-    text-align: center;
-}
-
-.button1 {
-    background-color: #333;
-    color: white;
-    padding: 20px 90px;
-    margin-right: 0.5%;
-    margin-top: 1%;
-}
-
-.button2 {
-    text-align: right;
-    background-color: #333;
-    color: white;
-    padding: 10px 35px;
-    margin-right: 9.5%;
-}
-
-.button3 {
-    background-color: #333;
-    color: white;
-    padding: 14px 60px;
-    font-size: large;
-    margin-left: 9%;
-    font-family: georgia;
-}
-
-.edit_button_rec {
-    background-color: #333;
-    color: white;
-    padding: 14px 60px;
-    font-size: large;
-    font-family: georgia;
-}
-
-.edit_profile {
-    background-color: #333;
-    color: white;
-    padding: 14px 60px;
-    font-size: large;
-    font-family: georgia;
-    width: 250px;
-}
-
-p.space {
-    line-height: 0.5;
+    width: 900px;
+    background-color: white;
+    min-height: 100%;
+    padding: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #fname {
@@ -145,19 +84,58 @@ p.space {
     line-height: 2px;
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
-    text-align: center;
+/* No link underlining. Looks super oldschool */
+a {
+    color: #3498db;
+    text-decoration: none;
 }
 
+/* We want a consistent look to all the buttons in our app, so common styling is here */
+button {
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    font-size: large;
+    font-family: georgia;
+    min-width: 200px;
+    padding: 15px;
+    margin: 10px 0px;
+    border: none;
+}
+button:hover {
+    background-color: #1b76b3;
+}
+
+/* Style all tables in our app with alternating colors and a dark header */
+table {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+tr:nth-child(odd) {
+  background-color: #DDD;
+}
+
+th {
+  background-color: #555;
+  color: #fff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+
+
+/* Styles the top navigation bar */
 ul.navbar {
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
     list-style-type: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 ul.navbar>li {
@@ -173,17 +151,19 @@ ul.navbar>li>a {
     text-decoration: none;
 }
 
-
-/* Change the link color to #111 (black) on hover */
-
 ul.navbar>li>a:hover {
     background-color: #111;
 }
 
+ul.navbar>li.right {
+    float: right;
+}
+
+/* Makes the cool spinner on pages which need to load */
 .spinner {
   margin: auto;
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border-top: 16px solid #555;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -192,9 +172,7 @@ ul.navbar>li>a:hover {
   position: absolute;
   left: 50%;
 }
-
-/* Safari */
-@-webkit-keyframes spin {
+@-webkit-keyframes spin { /* Safari */
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
 }

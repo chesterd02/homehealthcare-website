@@ -6,16 +6,18 @@ var AppId;
 (function AppScopeWrapper($) {
     var RevieweeId;
     var authToken;
+    var session;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
         } else {
-            window.location.href = 'signin.html';
+            window.location.href = 'index.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
-        window.location.href = 'signin.html';
+        window.location.href = 'index.html';
     });
+    App.session.then(s => session = s);
 
     $(function onDocReady() {
         getPageParams();
@@ -25,7 +27,7 @@ var AppId;
             requestReviewInfo("RevieweeId", RevieweeId, "reviews-received-list", false, true);
         }
         else {
-            var userId = App.session.sub;
+            var userId = session.sub;
             requestReviewInfo("RevieweeId", userId, "reviews-received-list", false, false);
             requestReviewInfo("ReviewerId", userId, "reviews-written-list", true, true);
         }

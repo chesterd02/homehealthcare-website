@@ -1,15 +1,15 @@
 <html>
 <link rel="stylesheet" href="styles.css" />
 
-<body style="background-color: antiquewhite;">
+<body>
     <ul class="navbar">
         <!-- need to change profile link based on provider or recipient -->
         <li><a href="profile_recipient.html">Profile</a></li>
         <li><a href="database_everyone.html">Database</a></li>
         <li><a href="matches.html">My Matches</a></li>
         <li><a href="reviews.html">My Reviews</a></li>
+        <li class="right"><a href="javascript:App.signOut()" >Log Out</a></li>
     </ul>
-    <div class="spinner"></div>
     <div class="content">
         <h1> Edit Profile Page</h1>
         <div class="form">
@@ -36,6 +36,16 @@
             <button class="button edit_button_rec" onclick="window.location.href='profile.html';">Save Changes</button>
         </div>
     </div>
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="https://js.arcgis.com/4.3/"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/account.js"></script>
+
 </body>
 
 </html>

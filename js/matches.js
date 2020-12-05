@@ -5,18 +5,20 @@ var AppId;
 
 (function AppScopeWrapper($) {
     var authToken;
+    var session;
     var matchesResult;
     var reviewsResult;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
         } else {
-            window.location.href = 'signin.html';
+            window.location.href = 'index.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
-        window.location.href = 'signin.html';
+        window.location.href = 'index.html';
     });
+    App.session.then(s => session = s);
 
     $(function onDocReady() {
         setMatchesTitle();
@@ -25,7 +27,7 @@ var AppId;
 
     function setMatchesTitle() {
         var title = $('#matches-title');
-        if (App.session['custom:provider'] == "true") {
+        if (session['custom:provider'] == "true") {
             title.append('My Recipients');
         }
         else {
@@ -35,11 +37,11 @@ var AppId;
 
     function requestMatchesInfo() {
         var body = {};
-        if (App.session['custom:provider'] == "true") {
-            body.MatchProviderId = App.session.sub;
+        if (session['custom:provider'] == "true") {
+            body.MatchProviderId = session.sub;
         }
         else {
-            body.MatchRecipientId = App.session.sub;
+            body.MatchRecipientId = session.sub;
         }
         $.ajax({
             method: 'POST',
@@ -60,7 +62,7 @@ var AppId;
     }
 
     function requestReviewsInfo() {
-        var body = { ReviewerId: App.session.sub };
+        var body = { ReviewerId: session.sub };
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl + '/get-reviews',
@@ -81,7 +83,7 @@ var AppId;
 
     function updateTable() {
         var matches;
-        var isProvider = App.session['custom:provider'] == "true";
+        var isProvider = session['custom:provider'] == "true";
         if (isProvider) {
             matches = matchesResult['Recipients'];
         }

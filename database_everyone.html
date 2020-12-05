@@ -1,56 +1,58 @@
 <html>
 <link rel="stylesheet" href="styles.css" />
 
-<body style="background-color: antiquewhite;">
+<body>
   <ul class="navbar">
     <!-- need to change profile link based on provider or recipient -->
     <li><a href="profile_provider.html">Profile</a></li>
     <li><a href="database_everyone.html">Database</a></li>
     <li><a href="matches.html">My Matches</a></li>
     <li><a href="reviews.html">My Reviews</a></li>
+    <li class="right"><a href="javascript:App.signOut()">Log Out</a></li>
   </ul>
   <div class="spinner"></div>
   <div class="content">
     <h1 id="database-title"></h1>
 
-    <table style="width:100%" id="database-table">
+    <table id="database-table">
       <tr>
         <th>Full Name</th>
         <th>Add Match</th>
       </tr>
     </table>
+    <div id="googleMap" style="width:50%;height:400px;margin-left: 25%;"></div>
 
   </div>
-  <div id="googleMap" style="width:50%;height:400px;margin-left: 25%;"></div>
 
   <script>
-    var markerss = [ {lat: 51.508742, lng: -0.120850 },
-      { lat: 55.508742, lng: -3.120850 },
-      { lat: 30.508742, lng: 3.120850 },
-      { lat: 40.508742, lng: -112.120850 },
-      { lat: 38.508742, lng: -110.120850 },
-      { lat: 42.508742, lng: -105.120850 }
+    var markerss = [{ lat: 51.508742, lng: -0.120850 },
+    { lat: 55.508742, lng: -3.120850 },
+    { lat: 30.508742, lng: 3.120850 },
+    { lat: 40.508742, lng: -112.120850 },
+    { lat: 38.508742, lng: -110.120850 },
+    { lat: 42.508742, lng: -105.120850 }
     ]
     function myMap() {
 
-      var mapProp= {
-        center:new google.maps.LatLng(40.508742, -112.120850),
-        zoom:5,
+      var mapProp = {
+        center: new google.maps.LatLng(40.508742, -112.120850),
+        zoom: 5,
       };
-      var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
       var markers = [];
       var mapUsers = ["west.ryan.k+r", "4444A", "chester", "1111A", "3333A", "2222A"]
       for (i = 0; i < markerss.length; i++) {
-          marker = new google.maps.Marker({
-            position: markerss[i],
-            map: map,
-            title: mapUsers[i]
-          });
+        marker = new google.maps.Marker({
+          position: markerss[i],
+          map: map,
+          title: mapUsers[i]
+        });
       };
-      markers.push(marker)   
+      markers.push(marker)
     }
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7h172MB4EuiGSE3IQ-oLV-C1UOWBfBb8&callback=myMap"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7h172MB4EuiGSE3IQ-oLV-C1UOWBfBb8&callback=myMap"></script>
   <script src="js/vendor/jquery-3.1.0.js"></script>
   <script src="js/vendor/bootstrap.min.js"></script>
   <script src="js/vendor/aws-cognito-sdk.min.js"></script>

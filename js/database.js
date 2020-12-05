@@ -17,16 +17,18 @@ function clickUser(profileId, isProvider) {
 
 (function AppScopeWrapper($) {
     var authToken;
+    var session;
     App.authToken.then(function setAuthToken(token) {
         if (token) {
             authToken = token;
         } else {
-            window.location.href = 'signin.html';
+            window.location.href = 'index.html';
         }
     }).catch(function handleTokenError(error) {
         alert(error);
-        window.location.href = 'signin.html';
+        window.location.href = 'index.html';
     });
+    App.session.then(s => session = s);
 
     $(function onDocReady() {
         setDatabaseTitle();
@@ -36,7 +38,7 @@ function clickUser(profileId, isProvider) {
 
     function setDatabaseTitle() {
         var title = $('#database-title');
-        if (App.session['custom:provider'] == "true") {
+        if (session['custom:provider'] == "true") {
             title.append('Database of all Recipients');
         }
         else {
@@ -61,7 +63,7 @@ function clickUser(profileId, isProvider) {
     }
     function updateTable(result) {
         var users = result['Users'];
-        var isProvider = App.session['custom:provider'] == "true";
+        var isProvider = session['custom:provider'] == "true";
 
         var isListedUserProvider = !isProvider;
         table = $('#database-table');
@@ -73,12 +75,12 @@ function clickUser(profileId, isProvider) {
             if (isListedUserProvider) {
                 id = user.ProviderId;
                 providerId = user.ProviderId;
-                recipientId = App.session.sub;
+                recipientId = session.sub;
             }
             else {
                 id = user.RecipientId;
                 recipientId = user.RecipientId;
-                providerId = App.session.sub;
+                providerId = session.sub;
             }
             var nameAnchorId = id + '_name';
             var nameCell = '<td><a id=\"' + nameAnchorId + '\" href=\"#\">' + user.UserName + '</a></td>';
