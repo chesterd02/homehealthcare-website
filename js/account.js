@@ -19,14 +19,16 @@ var recipientId;
 
     $(function onDocReady() {
         $('#edit_button').click(handleEditClick);
+        // $('#edit_button').click(handleEditClickRec);
         $('#changeProfilePicture').click(handleChangeProfilePic);
-        getUserImage();
+
         const urlParams = new URLSearchParams(window.location.search);
         var profileId = urlParams.get('ProfileId');
         if (profileId != null) {
             getClickedIdInfo(profileId);
         }
         else {
+            getUserImage();
             requestUserInfo();
         }
     });
@@ -44,7 +46,7 @@ var recipientId;
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error('Error requesting info: ', textStatus, ', Details: ', errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occurred when changing your profile picture:\n' + JSON.stringify(jqXHR));
+                //alert('An error occurred when changing your profile picture:\n' + JSON.stringify(jqXHR));
             }
         });
     }
@@ -57,7 +59,7 @@ var recipientId;
         //alert ("blob worked: " + blob);
         let url=URL.createObjectURL(blob);
         //alert ("url worked: " + url);
-        document.getElementById('changeProfilePicture').src = url;
+        document.getElementById('profilePicture').src = url;
     }
 
     function getClickedIdInfo(clickedId) {
@@ -83,7 +85,10 @@ var recipientId;
 
     function completeClickedInfo(result) {
         result = result.Items[0];
-        // alert("result: " + JSON.stringify(result));
+        //alert("result: " + JSON.stringify(result));
+        const urlParams = new URLSearchParams(window.location.search);
+        var profileId = urlParams.get('ProfileId');
+
         var username = result.UserName;
         // alert("Username: " + username);
         var email = result.Email;
@@ -95,6 +100,7 @@ var recipientId;
         var gender = result.Gender;
         var location = result.Location;
         //var photo        = result.PersonalPhoto
+        document.getElementById("profilePicture").src = 'health_care.png';
 
         if (username) {
             document.getElementById("profileName").innerHTML = "Name: " + username;
@@ -124,7 +130,6 @@ var recipientId;
             document.getElementById("profileLocation").innerHTML = "Location: " + location;
         } else { document.getElementById("profileLocation").style.display = "none"; }
         document.getElementById("editButton").style.display = "none";
-
         var clickedId;
         if (result.RecipientId != null) {
             clickedId = result.RecipientId;
@@ -132,6 +137,11 @@ var recipientId;
         else {
             clickedId = result.ProviderId;
         }
+        if (profileId != null){
+            document.getElementById("profilePicture").src = "health_care.png";
+            document.getElementById("changeProfilePicture").style.display = "none";
+        }
+
         $("#viewReviews").click(createViewReviewsClicked(clickedId));
         $("#viewReviews").show();
         $('.spinner').hide();
@@ -142,6 +152,19 @@ var recipientId;
         return function () {
             window.location.href = 'reviews.html?RevieweeId=' + revieweeId;
         }
+    }
+
+    function handelEditClickRec(){
+        var newName = document.getElementById("edit_name_rec").value;
+        var newCaretaker = document.getElementById("edit_caretaker_rec").value;
+        var newPhone = document.getElementById("edit_phone_rec").value;
+        var newAddress = document.getElementById("edit_address_rec").value;
+        var newState = document.getElementById("edit_state_rec").value;
+        var newZip = document.getElementById("edit_zip_rec").value;
+        var newEmail = document.getElementById("edit_email_rec").value;
+        var newNeeds = document.getElementById("edit_needs_rec").value;
+
+
     }
 
     function handleEditClick() {
@@ -198,7 +221,14 @@ var recipientId;
     }
 
     function completeUpdateInfo() {
-        window.location.href = 'profile_provider.html'
+        // alert ("ProviderID: " + providerId);
+        // alert ("RecipientID: " + recipientId);
+        if (providerId){
+            window.location.href = 'profile_provider.html'
+        }
+        else{
+            window.location.href = 'profile_recipient.html'
+        }
     }
 
 
@@ -222,6 +252,7 @@ var recipientId;
 
     function completeUserInfoRequest(result) {
         result = result.Items[0];
+        //alert(JSON.stringify(result));
         recipientId = result.RecipientId;
         providerId = result.ProviderId;
         var username = result.UserName;
@@ -278,7 +309,7 @@ var recipientId;
             reader.readAsDataURL(file)
             reader.onload = readerEvent =>{
                 var content = readerEvent.target.result;
-                document.getElementById('changeProfilePicture').src = content;
+                document.getElementById('profilePicture').src = content;
                 uploadImageToS3(content);
             }
         }
@@ -307,46 +338,4 @@ var recipientId;
         });
     }
 
-    //*****
-    //*******HANDLE  CHANGE
-    function handleAliasClick(event) {
-        event.preventDefault();
-        var newAlias = prompt("Enter your new Alias:")
-        if (newAlias == null || newAlias == "") {
-            alert("cancelled");
-        } else {
-            updateAlias(newAlias)
-        }
-    }
-    function updateAlias(newAlias) {
-        //alert('new alias will be: '+ newAlias);
-        $.ajax({
-            method: 'POST',
-            url: _config.api.invokeUrl + '/changealias',
-            headers: {
-                Authorization: authToken
-            },
-            data: JSON.stringify({
-                newAlias: newAlias
-            }),
-            contentType: 'application/json',
-            success: requestUserInfo,
-            error: function ajaxError(jqXHR, textStatus, errorThrown) {
-                console.error('Error updating alias: ', textStatus, ', Details: ', errorThrown);
-                console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when updating the alias.');
-                // alert('An error occurred when updating alias:\n' + jqXHR.responseText);
-            }
-        });
-    }
-
-    function completeRequest(result) {
-        // alert(JSON.stringify(result));
-        // alert(JSON.stringify(result.matches))
-        displayUpdate("this is an update")
-    }
-
-    function displayUpdate(text) {
-        $('#updates').append($('<li>' + text + '</li>'));
-    }
 }(jQuery));
